@@ -1,0 +1,2 @@
+study_id,study_name,year,country,intervention,outcome,effect_type,effect,se,n_treat,n_ctrl,cost_usd_per_person,include,notes
+example_1,REPLACE,2015,XX,UCT,consumption,hedges_g,,,,,0,Delete this row after first real extract

@@ -1,0 +1,20 @@
+# Explicit moral / unit conversions. Every rank change should trace to a row here.
+
+charities:
+  AMF:
+    cost_per_death_averted: null  # from project 01 or GiveWell
+    years_of_life_per_death_averted: 40
+  SMC:
+    cost_per_death_averted: null
+    years_of_life_per_death_averted: 45
+  HKI_VAS:
+    cost_per_death_averted: null
+    years_of_life_per_death_averted: 50
+  GiveDirectly:
+    cost_per_household: 1000
+    consumption_gain_share: 0.3
+    wellbys_per_log_income: null  # from HLI / literature
+
+wellby:
+  wellbys_per_year_of_healthy_life: 6.0  # placeholder — cite HLI/Frijters before using
+  notes: Sensitivity on this single number is the core result of the project.

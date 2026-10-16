@@ -1,0 +1,59 @@
+# Illustrative AMF-style LLIN model.
+# Replace every value with cells from the current GiveWell CEA spreadsheet
+# (https://www.givewell.org/how-we-work/our-criteria/cost-effectiveness/cost-effectiveness-models).
+# Until then, treat outputs as a methods demo, not a funding recommendation.
+#
+# Distributions: lognormal via mean+cv, beta via mean+phi, triangular, or point.
+
+meta:
+  charity: Against Malaria Foundation (illustrative)
+  outcome: cost_per_death_averted
+  givewell_point_estimate_placeholder: null  # paste published $/death averted
+  notes: >
+    Chain is simplified: cost → nets → person-years of coverage → malaria deaths averted.
+    Funging, leverage, and counterfactual nets are collapsed into adjustment_factor.
+
+parameters:
+  cost_per_net:
+    kind: lognormal_mean_cv
+    mean: 4.5
+    cv: 0.25
+    source: "GiveWell — cost per net delivered (replace)"
+  nets_per_person_covered:
+    kind: triangular
+    left: 0.8
+    mode: 1.0
+    right: 1.8
+    source: "Household sharing / coverage (replace)"
+  years_of_net_efficacy:
+    kind: triangular
+    left: 1.5
+    mode: 2.2
+    right: 3.0
+    source: "Net durability (replace)"
+  usage_rate:
+    kind: beta_mean_phi
+    mean: 0.70
+    phi: 30
+    source: "Net use among those with access (replace)"
+  protective_efficacy:
+    kind: beta_mean_phi
+    mean: 0.45
+    phi: 40
+    source: "Efficacy against malaria mortality (replace)"
+  malaria_deaths_per_1000_py:
+    kind: lognormal_mean_cv
+    mean: 2.0
+    cv: 0.50
+    source: "Baseline malaria mortality in target pop (replace)"
+  adjustment_factor:
+    kind: triangular
+    left: 0.5
+    mode: 0.8
+    right: 1.1
+    source: "Net of funging, leverage, targeting (replace)"
+  philanthropic_cost_share:
+    kind: beta_mean_phi
+    mean: 1.0
+    phi: 80
+    source: "Share of cost attributed to philanthropic funder (replace)"

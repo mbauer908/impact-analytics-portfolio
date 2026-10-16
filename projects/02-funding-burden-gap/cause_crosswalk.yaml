@@ -1,0 +1,12 @@
+# Map OECD CRS purpose codes to a GBD cause family.
+# Fill after you pick the family on Day 5. This stub is malaria-oriented.
+
+cause_family: malaria
+gbd_cause_name: Malaria
+crs_purpose_codes:
+  - {code: 12250, label: "Infectious disease control (too broad — split or note)"}
+  - {code: 12281, label: "Health personnel development (usually exclude)"}
+notes: >
+  CRS malaria-specific purpose codes have changed over time. Prefer purpose
+  names containing 'malaria' plus a documented include/exclude list.
+  Do not pretend 12250 is malaria-only.
