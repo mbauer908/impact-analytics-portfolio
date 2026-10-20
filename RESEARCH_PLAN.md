@@ -17,6 +17,7 @@ Treat this as two sprints. Week 1 is global-health / philanthropy (GiveWell + Fi
 | **0 (2–3h)** | Env, GitHub, data accounts (NREL, OECD, IHME downloads) | `marimo edit` works; keys in `.env` |
 | **1** | 01 GiveWell — parameterize AMF or VAS from the public spreadsheet | Parameter table with sources; model reproduces GiveWell point estimate ±10% |
 | **2** | 01 GiveWell — Monte Carlo, tornado, brief | 20k draws; top 5 drivers; `brief.md` v1 |
+| **2b** | 01 GiveWell — **portfolio** rank-order under uncertainty | All top-charity program×geography cells; P(rank=1); rank-stability figs; brief section |
 | **3** | 03 Meta-analysis — extract 3ie studies (cash transfers *or* deworming) | Extraction sheet ≥8 studies with effect, SE, N, cost if available |
 | **4** | 03 Meta-analysis — random-effects pool, heterogeneity, cost per outcome | Forest plot + `brief.md` v1 |
 | **5** | 02 Funding–burden — join CRS/IATI + GBD for one year, cause × country | Gap ranking for a cause family (e.g. NTDs or malaria) |
@@ -38,25 +39,37 @@ If you only have **one week**, ship 01, 03, and 02 (in that order). Those three 
 
 ### 01 — Stress-test a GiveWell CEA
 
-**Question.** For Against Malaria Foundation (LLINs) *or* Helen Keller Intl vitamin A, which parameters dominate uncertainty in cost per outcome, and how often does the charity fall below a funding bar?
+**Question (Days 1–2).** For Against Malaria Foundation (LLINs) in one geography, which parameters dominate uncertainty in cost per outcome, and how often does the simplified chain stay under a working bar?
 
-**In**
+**Question (Day 2b).** Across GiveWell’s published top-charity **program × geography** portfolio, how stable is **rank order** once each initiative’s cost-effectiveness is drawn from GiveWell’s own uncertainty ranges? Who is #1 how often? Do mid-pack swaps matter for a grantmaker?
+
+**In (Days 1–2)**
 - Recode the published GiveWell point-estimate chain into explicit distributions (lognormal costs, beta shares, triangular expert ranges).
 - Monte Carlo (n ≥ 20,000).
 - Rank-correlation tornado + one-way sensitivity on the top 5.
 - Compare to GiveWell’s published point estimate as a calibration check.
-- 2-page note: “Would a skeptical prior change the funding decision?”
+- Decision-first note for the single-initiative stress test.
+
+**In (Day 2b — portfolio)**
+- Unit of analysis: each top-charity program geography in GiveWell’s moral-weights / CE tool (AMF, Malaria Consortium, HKI VAS, New Incentives).
+- Point estimates: published “× benchmark” (or × cash) figures.
+- Uncertainty: GiveWell Sensitivity-analysis **25th / best / 75th** on final CE where available; otherwise impute relative width from peer geographies in the same charity (document which rows are imputed).
+- Monte Carlo over triangular CE draws → distribution of ranks; report P(rank=1), median rank, top-5 set Jaccard vs point ranking, charity-level P(owns best geography).
+- **Top Charities Fund CE-screen proxy:** P(CE ≥ funding bar) per initiative-geography (primary **6×**, robustness **8×**); rank by that probability; size of eligible set; rank among eligible. Caveat: TCF allocation also uses judgment / room for more funding.
+- Figures: CE range forest for top 20; P(rank=1); point-rank vs median-MC-rank scatter; P(clear bar); contested geos; eligible-set size.
 
 **Out**
-- Full replication of every GiveWell adjustment (leverage, funging, crowding-in) unless it is a top driver.
+- Full reverse-engineering of every charity’s causal chain for 2b (use published CE + CI sheets instead).
 - Bayesian elicitation interviews.
-- Multiple charities (save that comparison for 04).
+- Correlated uncertainty across charities (independent draws are the default; note as limitation).
+- Claiming a new funding recommendation that overrides GiveWell’s process.
 
-**Primary source.** GiveWell CEA spreadsheets: https://www.givewell.org/how-we-work/our-criteria/cost-effectiveness/cost-effectiveness-models
+**Primary source.** GiveWell CEA spreadsheets: https://www.givewell.org/how-we-work/our-criteria/cost-effectiveness/cost-effectiveness-models  
+Moral-weights / portfolio CE table (links those CEAs).
 
-**Fallback.** If spreadsheet parsing eats the day, use the documented parameter table in `projects/01-givewell-cea-uncertainty/parameters.yaml` (illustrative, labeled as such) and treat calibration as a limitation.
+**Fallback.** If spreadsheet parsing eats the day, use the documented parameter table in `projects/01-givewell-cea-uncertainty/parameters.yaml` (illustrative, labeled as such) and treat calibration as a limitation. For 2b, fall back to point ranks only + a qualitative uncertainty discussion.
 
-**Deliverables.** `notebook.py`, `parameters.yaml`, `figures/tornado.png`, `figures/cea_distribution.png`, `brief.md`
+**Deliverables.** `notebook.py`, `parameters.yaml`, `figures/tornado.png`, `figures/cea_distribution.png`, `portfolio_ce_ranges.csv`, `figures/portfolio_*.png`, `brief.md` (includes portfolio rank section)
 
 ---
 

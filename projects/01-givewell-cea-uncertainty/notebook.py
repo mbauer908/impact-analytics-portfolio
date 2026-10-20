@@ -29,14 +29,15 @@ def _():
 
     mo.md(
         """
-        # Stress-testing a GiveWell-style LLIN CEA
+        # Stress-testing GiveWell's AMF CEA (Guinea)
 
-        Convert point estimates into distributions, simulate cost per death averted,
-        and rank which assumptions dominate uncertainty.
+        Convert GiveWell point estimates into distributions, simulate cost per
+        under-5 death averted, and rank which assumptions dominate uncertainty.
 
-        **Calibration rule:** once `parameters.yaml` is filled from GiveWell's spreadsheet,
-        the median of this model should land near their published point estimate.
-        Until then, treat numbers as a methods demonstration.
+        **Calibration:** `parameters.yaml` is sourced to GiveWell's public AMF
+        workbook (Guinea). At input *modes*, the chain should reproduce Simple CEA
+        cost per U5 death averted (about **$2,225**). Monte Carlo medians can drift
+        because several inputs are asymmetric triangulars.
         """
     )
     return (
@@ -137,9 +138,10 @@ def _(df, mo, pd):
     )
     mo.md(
         f"""
-        Working bars ($5k and $10k per death averted) are **illustrative**, not GiveWell's bar.
-        Median cost per death averted: **${summary['median']:,.0f}**
+        Working bars ($5k / $10k) are **illustrative**, not GiveWell's funding threshold.
+        Median cost per U5 death averted: **${summary['median']:,.0f}**
         (5–95%: ${summary['p5']:,.0f} – ${summary['p95']:,.0f}).
+        Share below $5k: **{summary['share_below_5000']:.0%}**.
         """
     )
     summary
@@ -147,21 +149,38 @@ def _(df, mo, pd):
 
 
 @app.cell
-def _(df, plt):
-    fig, ax = plt.subplots(figsize=(8, 4))
-    ax.hist(df["cost_per_death_averted"].clip(upper=df["cost_per_death_averted"].quantile(0.99)), bins=60, color="#3b6d9a")
-    ax.axvline(df["cost_per_death_averted"].median(), color="black", linestyle="--", label="median")
-    ax.set_xlabel("Cost per death averted (USD)")
-    ax.set_ylabel("Draws")
-    ax.legend()
-    ax.set_title("Monte Carlo: cost per death averted")
+def _(Path, df, plt, spec):
+    fig_dir = Path(__file__).resolve().parent / "figures"
+    fig_dir.mkdir(parents=True, exist_ok=True)
+
+    s_plot = df["cost_per_death_averted"]
+    gw = spec["meta"]["givewell_point_estimate_placeholder"]
+
+    xmax = float(s_plot.quantile(0.99))
+    fig, ax = plt.subplots(figsize=(8, 4.2))
+    ax.hist(
+        s_plot[s_plot <= xmax],
+        bins=60,
+        color="#3b6d9a",
+        edgecolor="white",
+        linewidth=0.3,
+    )
+    ax.axvline(s_plot.median(), color="black", linestyle="--", label=f"median ${s_plot.median():,.0f}")
+    if gw is not None:
+        ax.axvline(gw, color="#c47b3a", linestyle="-", label=f"GiveWell point ${gw:,.0f}")
+    ax.set_xlim(float(s_plot.min()) * 0.95, xmax)
+    ax.set_xlabel("Cost per under-5 death averted (USD)")
+    ax.set_ylabel("Monte Carlo draws")
+    ax.set_title("AMF (Guinea): cost per U5 death averted — 20,000 draws")
+    ax.legend(frameon=False)
     fig.tight_layout()
+    fig.savefig(fig_dir / "cea_distribution.png", dpi=160)
     fig
-    return ax, fig
+    return ax, fig, fig_dir, gw, s_plot, xmax
 
 
 @app.cell
-def _(df, plt, spearman_tornado):
+def _(df, fig_dir, plt, spearman_tornado):
     inputs = [
         "cost_per_net",
         "nets_per_person_covered",
@@ -169,38 +188,46 @@ def _(df, plt, spearman_tornado):
         "usage_rate",
         "protective_efficacy",
         "malaria_deaths_per_1000_py",
-        "adjustment_factor",
         "philanthropic_cost_share",
     ]
+    # Omit adjustment_factor: held at a point mass (no Spearman).
     tornado = spearman_tornado(df, "log10_cost_per_death", inputs)
 
-    fig2, ax2 = plt.subplots(figsize=(7, 4))
+    fig2, ax2 = plt.subplots(figsize=(7.5, 4.2))
     ordered = tornado.sort_values("spearman")
-    ax2.barh(ordered["input"], ordered["spearman"], color="#c47b3a")
+    colors = ["#3b6d9a" if v < 0 else "#c47b3a" for v in ordered["spearman"]]
+    ax2.barh(ordered["input"], ordered["spearman"], color=colors)
     ax2.axvline(0, color="black", linewidth=0.8)
-    ax2.set_xlabel("Spearman ρ with log10(cost per death averted)")
-    ax2.set_title("Which assumptions drive uncertainty?")
+    ax2.set_xlabel("Spearman ρ with log10(cost per U5 death averted)")
+    ax2.set_title("Which assumptions drive uncertainty? (Guinea AMF)")
     fig2.tight_layout()
+    fig2.savefig(fig_dir / "tornado.png", dpi=160)
     fig2
-    return ax2, fig2, inputs, ordered, tornado
+    return ax2, colors, fig2, inputs, ordered, tornado
 
 
 @app.cell
-def _(mo, tornado):
-    top = tornado.iloc[0]["input"]
+def _(mo, summary, tornado):
+    top5 = tornado.head(5)
+    lines = "\n".join(
+        f"        {i}. `{r.input}` (ρ={r.spearman:+.2f})"
+        for i, r in enumerate(top5.itertuples(), 1)
+    )
     mo.md(
         f"""
-        ## Next (Day 2)
+        ## Day 2 status
 
-        1. Replace every row in `parameters.yaml` with GiveWell spreadsheet cells.
-        2. Paste their published point estimate into `meta.givewell_point_estimate_placeholder`.
-        3. Save the histogram and tornado into `figures/`.
-        4. Write the decision paragraph in `brief.md`.
+        Figures written to `figures/cea_distribution.png` and `figures/tornado.png`.
+        Decision write-up is in `brief.md`.
 
-        Current top driver (illustrative): **{top}**.
+        Median **${summary['median']:,.0f}** (5–95%: ${summary['p5']:,.0f}–${summary['p95']:,.0f}).
+        Share below $5k: **{summary['share_below_5000']:.0%}**.
+
+        Top drivers:
+{lines}
         """
     )
-    return (top,)
+    return lines, top5
 
 
 if __name__ == "__main__":

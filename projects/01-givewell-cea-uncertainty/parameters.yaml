@@ -1,59 +1,103 @@
-# Illustrative AMF-style LLIN model.
-# Replace every value with cells from the current GiveWell CEA spreadsheet
-# (https://www.givewell.org/how-we-work/our-criteria/cost-effectiveness/cost-effectiveness-models).
-# Until then, treat outputs as a methods demo, not a funding recommendation.
+# AMF LLIN chain parameterized from GiveWell's public CEA (Guinea).
+# Source workbook: https://docs.google.com/spreadsheets/d/1VEtie59TgRvZSEVjfG7qcKBKcQyJn8zO91Lau9YNqXc
+# Local copy: data/raw/givewell/amf-cea.xlsx (gitignored).
 #
-# Distributions: lognormal via mean+cv, beta via mean+phi, triangular, or point.
+# The xlsx "Build your own moral weights! (public).xlsx" is GiveWell's moral-weights
+# *tool*, not this CEA. It links the AMF sheet above and reports Guinea at 22.6x cash.
+#
+# Object of analysis: Guinea (highest-CE AMF geography in this workbook).
+# Outcome: donor cost per under-5 malaria-attributable death averted, matching
+# Simple CEA!K18 *before* funging / leverage / 5+ / income adjustments.
+#
+# Mapping note: this repo's 1-net chain applies mortality to all person-years
+# under nets. GiveWell's U5 deaths use only the under-5 share of coverage.
+# So malaria_deaths_per_1000_py = (U5 malaria-attributable mortality) × (U5 pop share) × 1000.
 
 meta:
-  charity: Against Malaria Foundation (illustrative)
+  charity: Against Malaria Foundation
+  geography: Guinea
   outcome: cost_per_death_averted
-  givewell_point_estimate_placeholder: null  # paste published $/death averted
+  givewell_point_estimate_placeholder: 2224.71  # Simple CEA!K18, $/U5 death averted
+  givewell_final_cost_per_life_saved: 2940.58  # Simple CEA!K39 (all-age, after adjustments)
+  givewell_x_benchmark: 22.79  # Simple CEA!K38
+  spreadsheet: https://docs.google.com/spreadsheets/d/1VEtie59TgRvZSEVjfG7qcKBKcQyJn8zO91Lau9YNqXc
   notes: >
-    Chain is simplified: cost → nets → person-years of coverage → malaria deaths averted.
-    Funging, leverage, and counterfactual nets are collapsed into adjustment_factor.
+    Point estimates are GiveWell best guesses. 25th/75th bounds are from the
+    Confidence intervals sheet (Guinea columns L/M/N) where available.
+    Funging (−30% in Guinea), 5+ deaths, and income effects are *not* in the
+    U5 $/death target; they sit in givewell_final_cost_per_life_saved.
 
 parameters:
   cost_per_net:
-    kind: lognormal_mean_cv
-    mean: 4.5
-    cv: 0.25
-    source: "GiveWell — cost per net delivered (replace)"
+    kind: triangular
+    left: 3.29
+    mode: 3.93785
+    right: 5.35
+    source: >
+      Mode: Inputs!K16 total cost per ITN distributed ($3.93785).
+      Bounds: scale that unit cost by Guinea CI on cost per U5 reached
+      (Confidence intervals!L9:N9 = $14.80 / $17.71 / $24.06).
   nets_per_person_covered:
     kind: triangular
-    left: 0.8
-    mode: 1.0
-    right: 1.8
-    source: "Household sharing / coverage (replace)"
+    left: 0.465
+    mode: 0.502
+    right: 0.581
+    source: >
+      Mode: 1 / (people sleeping under each used net). People/net = Inputs!K25
+      (1.99095). Bounds: min/max people-per-net across AMF geographies in
+      Inputs!I25:P25 (DRC 2.15114 → 0.465; Togo 1.72163 → 0.581).
+      Notebook treats 1/nets_per_person_covered as people covered per used net.
   years_of_net_efficacy:
     kind: triangular
     left: 1.5
-    mode: 2.2
-    right: 3.0
-    source: "Net durability (replace)"
+    mode: 1.965608617
+    right: 2.3
+    source: >
+      Simple CEA!K12 / Main CEA!K43 effective coverage years per net.
+      25/75: Confidence intervals!L10:N10.
   usage_rate:
     kind: beta_mean_phi
-    mean: 0.70
-    phi: 30
-    source: "Net use among those with access (replace)"
-  protective_efficacy:
-    kind: beta_mean_phi
-    mean: 0.45
+    mean: 0.63
     phi: 40
-    source: "Efficacy against malaria mortality (replace)"
-  malaria_deaths_per_1000_py:
-    kind: lognormal_mean_cv
-    mean: 2.0
-    cv: 0.50
-    source: "Baseline malaria mortality in target pop (replace)"
-  adjustment_factor:
+    source: >
+      Main CEA!H37 = Inputs!H21 × (1 + Inputs!H22) = 0.70 × (1 − 0.10) = 0.63.
+      Pryce et al. 2018 trial use, minus 10 ppt program-context adjustment.
+      No published CI; phi=40 is a moderately tight beta around that mean.
+  protective_efficacy:
     kind: triangular
-    left: 0.5
-    mode: 0.8
-    right: 1.1
-    source: "Net of funging, leverage, targeting (replace)"
+    left: 0.38
+    mode: 0.4600684292
+    right: 0.53
+    source: >
+      Simple CEA!K14 / Main CEA!K69 expected reduction in U5 malaria mortality
+      among children sleeping under nets (Pryce 45% incidence reduction,
+      Inputs!H132, after IV −5%, EV −5%, and Guinea insecticide-resistance
+      Main CEA!K66). 25/75: Confidence intervals!L12:N12.
+  malaria_deaths_per_1000_py:
+    kind: triangular
+    left: 0.88
+    mode: 1.492
+    right: 2.05
+    source: >
+      Mode: Simple CEA!K13 U5 malaria-attributable mortality (0.008802499665)
+      × Main CEA!K50 U5 population share (0.1695301454) × 1000 = 1.492.
+      (U5 rate already includes indirect deaths, Inputs!H136 = 0.75, and an
+      SMC offset.) Bounds: same share × CI on U5 mortality
+      (Confidence intervals!L11:N11 = 0.0052 / 0.00880 / 0.0121).
+  adjustment_factor:
+    kind: point
+    value: 1.0
+    source: >
+      Held at 1.0 so the chain calibrates to Simple CEA!K18 ($2,225 per U5
+      death) *before* final adjustments. Guinea funging is Simple CEA!K35
+      (−0.300); leverage K34 (−0.0014); grantee K33 (−0.04). Putting those
+      into this factor would target ~$3,300/death, closer to K39 ($2,941
+      per all-age life) but would miss the U5 point estimate.
   philanthropic_cost_share:
     kind: beta_mean_phi
-    mean: 1.0
-    phi: 80
-    source: "Share of cost attributed to philanthropic funder (replace)"
+    mean: 0.9562847
+    phi: 200
+    source: >
+      Inputs!K11 / Main CEA!K11 percentage of total costs covered by the
+      grantee. Donor (upstream) cost per net = K16 × K11 = Main CEA!K29
+      ($3.7657). Cross-country range is only 0.937–0.961; tight beta.

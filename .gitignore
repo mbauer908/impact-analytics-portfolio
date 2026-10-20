@@ -33,3 +33,4 @@ data/processed/**
 .python-version
 .idea/
 .vscode/
+.mplconfig/

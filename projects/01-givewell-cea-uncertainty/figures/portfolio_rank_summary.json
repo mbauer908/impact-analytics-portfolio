@@ -1,0 +1,32 @@
+{
+  "n_initiatives": 87,
+  "n_draws": 20000,
+  "metric": "x_givewell_benchmark",
+  "tcf_bar_primary": 6.0,
+  "tcf_bar_legacy": 8.0,
+  "tcf_bar_note": "Proxy for Top Charities Fund CE screen only. GiveWell also uses judgment, room for more funding, and implementation factors. All 87 geos are already Top Charity programs; the screen is whether the geography clears the \u00d7-benchmark bar under uncertainty.",
+  "point_estimate_leader": "Helen Keller International \u2014 Niger",
+  "p_leader_remains_rank1": 0.84,
+  "spearman_point_rank_vs_median_mc_rank": 0.9993756675860767,
+  "mean_jaccard_top5_vs_point_top5": 0.5677003968253969,
+  "native_ci_count": 44,
+  "imputed_ci_count": 43,
+  "charity_level_p_rank1": {
+    "Helen Keller International": 0.8605,
+    "New Incentives": 0.1341,
+    "Malaria Consortium": 0.0054,
+    "Against Malaria Foundation": 0.0
+  },
+  "n_above_6x_point": 50,
+  "n_above_8x_point": 45,
+  "mean_n_clearing_6x": 48.19075,
+  "p5_n_clearing_6x": 46.0,
+  "p95_n_clearing_6x": 51.0,
+  "mean_n_clearing_8x": 41.74825,
+  "p5_n_clearing_8x": 39.0,
+  "p95_n_clearing_8x": 45.0,
+  "n_always_clear_6x": 33,
+  "n_rarely_clear_6x": 34,
+  "n_always_clear_8x": 23,
+  "n_rarely_clear_8x": 38
+}

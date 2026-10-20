@@ -1,0 +1,5 @@
+charity,point_best_geo_ce,n_geos,n_above_6x_point,n_above_8x_point,p_rank1,median_rank_mc,mean_geos_clearing_6x,mean_geos_clearing_8x,p_any_geo_clears_6x,p_any_geo_clears_8x
+Helen Keller International,58.9,24,14,13,0.86045,1.0,13.8434,11.8911,1.0,1.0
+New Incentives,41.6,37,11,9,0.13415,2.0,10.4375,8.75025,1.0,1.0
+Malaria Consortium,29.6,18,18,17,0.0054,3.0,17.459,15.55095,1.0,1.0
+Against Malaria Foundation,22.6,8,7,6,0.0,4.0,6.45085,5.55595,1.0,1.0
