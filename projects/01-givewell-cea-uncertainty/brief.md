@@ -51,13 +51,13 @@ Lower is better. $2,000 per death averted means more impact per dollar than $10,
 
 A spreadsheet cell that says “cost per net = $3.94” is a **point estimate**: one number, as if we knew it for sure. In reality, costs, usage, and disease burden are uncertain. A **distribution** encodes that: for example, “most likely about $3.94, but plausible from roughly $3.30 to $5.35.”
 
-When several inputs are uncertain, the *output* (cost per death) is also a distribution—a smear of possible answers—not a single dollar figure. The **median** is the middle of that smear (half of simulated worlds are cheaper, half are more expensive). The **5th and 95th percentiles** mark a range that covers the middle 90% of simulated outcomes (a practical “most of the time” interval, not a formal statistical confidence interval from a survey).
+When several inputs are uncertain, the *output* (cost per death) is also a distribution—a range of possible answers—not a single dollar figure. The **median** is the middle of that range (half of simulated worlds are cheaper, half are more expensive). The **5th and 95th percentiles** mark a range that covers the middle 90% of simulated outcomes (a practical “most of the time” interval, not a formal statistical confidence interval from a survey).
 
 Many of our inputs (and the portfolio CE ranges) use a **triangular distribution**: three numbers only—lowest plausible, most likely (the peak), and highest plausible. A **triangular draw** is one random number from that shape. Unlike a uniform draw (every value between min and max equally likely), a triangular draw treats the best guess as more likely than the extremes—a simple match to GiveWell’s “25th / best / 75th” style ranges.
 
 #### What Monte Carlo is (and what it is not)
 
-**Monte Carlo** means: run the model thousands of times with random draws from each input distribution, then summarize the cloud of results. We used **20,000** such runs. It is a way to *propagate uncertainty* through a formula when the formula is too messy for neat algebra.
+**Monte Carlo** means: run the model thousands of times with random draws from each input distribution, then summarize the distribution of results. We used **20,000** such runs. It is a way to carry uncertainty through a formula when the formula is too messy for neat algebra.
 
 It is **not** the same as **MCMC** (Markov chain Monte Carlo). MCMC is a related family of algorithms used mainly for Bayesian statistical estimation (learning distributions from data). This project does **not** use MCMC. We take GiveWell’s published best guesses and uncertainty ranges as given, then Monte Carlo them through a simplified causal chain. Think “stress-test their spreadsheet under noise,” not “re-estimate malaria epidemiology from raw data.”
 
@@ -116,9 +116,9 @@ The median sits ~15% above the point estimate because several input ranges are *
 
 #### How to read the tornado chart (Figure 2)
 
-This is a **rank-correlation tornado**: a sensitivity chart that shows which uncertain assumptions most co-move with the outcome across the 20,000 simulated worlds.
+This is a **rank-correlation tornado**: a sensitivity chart that shows which uncertain assumptions most move together with the outcome across the 20,000 simulated worlds.
 
-**What each bar is.** Each row is one model input (cost per net, usage rate, etc.). The bar length is the **Spearman rank correlation** (ρ) between that input and log₁₀(cost per under-5 death averted). Spearman asks: when this input is *relatively* high in a draw, is cost per death *relatively* high or low? Values near 0 mean that input barely tracks the outcome; values farther from 0 mean it is a bigger driver of the smear in Figure 1.
+**What each bar is.** Each row is one model input (cost per net, usage rate, etc.). The bar length is the **Spearman rank correlation** (ρ) between that input and log₁₀(cost per under-5 death averted). Spearman asks: when this input is *relatively* high in a draw, is cost per death *relatively* high or low? Values near 0 mean that input barely tracks the outcome; values farther from 0 mean it is a bigger driver of the spread in Figure 1.
 
 **Left vs right (color).**
 - **Blue bars (left of zero):** higher values of that input tend to go with *lower* cost per death (better cost-effectiveness). Example: higher baseline malaria mortality → more deaths to avert → cheaper per death averted.
@@ -126,7 +126,7 @@ This is a **rank-correlation tornado**: a sensitivity chart that shows which unc
 
 **How to use it for a decision.** Focus on the longest bars first. Here, **baseline malaria mortality** and **usage** dominate; philanthropic cost share barely matters. A skeptical review should pressure-test those top drivers—not every cell in the spreadsheet equally. If you became convinced that usage is much lower *and* baseline mortality much lower than GiveWell’s range, the cost-per-death distribution in Figure 1 would shift right (worse); if those hold up, the “usually under $5k” conclusion is harder to overturn.
 
-**What this chart is not.** It is not a classic one-way tornado that moves one input to its low/high while freezing all others. Here every input varies together in the Monte Carlo; the bars measure co-movement with the outcome, not “dollar change if I bump X alone.” Figure 3 supplies that classic one-way view. Figure 2 also does not say which input is *most uncertain* in the real world—only which ones, given the ranges we used, most shape the simulated answer.
+**What this chart is not.** It is not a classic one-way tornado that moves one input to its low/high while freezing all others. Here every input varies together in the Monte Carlo; the bars measure how inputs and the outcome move together, not “dollar change if I change X alone.” Figure 3 supplies that classic one-way view. Figure 2 also does not say which input is *most uncertain* in the real world—only which ones, given the ranges we used, most shape the simulated answer.
 
 #### One-way sensitivity on the top five drivers
 
@@ -152,12 +152,12 @@ Hold every input at its GiveWell best guess (~**$2,224** per U5 death—the cali
 
 | Approach | What it asks | Top drivers here |
 |---|---|---|
-| **Spearman (Monte Carlo)** | When *everything* varies together, which inputs co-move with the outcome smear? | Mortality → **usage** → cost |
-| **One-way** | If I bump *only* this input to its low/high, how far does the dollar answer move? | Mortality → **cost** → years → usage |
+| **Spearman (Monte Carlo)** | When *everything* varies together, which inputs move with the outcome distribution? | Mortality → **usage** → cost |
+| **One-way** | If I change *only* this input to its low/high, how far does the dollar answer move? | Mortality → **cost** → years → usage |
 
 Usage looks bigger in Monte Carlo because it is a high-leverage share in the chain and varies in every draw; cost looks bigger one-way because its published triangular range is wider than the tight beta used for usage (no GiveWell CI on usage; we use that beta’s 5th–95th).
 
-**Practical takeaway for a reviewer.** Pressure-test **mortality and usage** first (epidemiology / real-world net use)—those dominate the joint-uncertainty story. Check **cost per net** next as a wide, isolated swing. Don’t treat the two tornado orderings as conflicting conclusions; treat them as joint vs isolated views of the same model.
+**Practical takeaway for a reviewer.** Pressure-test **mortality and usage** first (epidemiology / real-world net use)—those dominate when all inputs vary together. Check **cost per net** next as a wide swing when moved alone. Don’t treat the two tornado orderings as conflicting conclusions; treat them as “all inputs varying” vs “one input at a time” views of the same model.
 
 ### What would change my mind (Guinea AMF)
 
