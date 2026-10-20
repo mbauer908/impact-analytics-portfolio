@@ -23,6 +23,7 @@ def _():
         Dist,
         beta_from_mean_phi,
         lognormal_from_mean_cv,
+        one_way_sensitivity,
         run_mc,
         spearman_tornado,
     )
@@ -47,6 +48,7 @@ def _():
         lognormal_from_mean_cv,
         mo,
         np,
+        one_way_sensitivity,
         pd,
         plt,
         root,
@@ -207,27 +209,142 @@ def _(df, fig_dir, plt, spearman_tornado):
 
 
 @app.cell
-def _(mo, summary, tornado):
+def _(beta_from_mean_phi, np, one_way_sensitivity, outcomes, spec, tornado):
+    from scipy.stats import beta as beta_dist
+
+    def _baseline_and_bounds(name: str, p: dict) -> tuple[float, float, float]:
+        kind = p["kind"]
+        if kind == "triangular":
+            return p["mode"], p["left"], p["right"]
+        if kind == "beta_mean_phi":
+            a, b = beta_from_mean_phi(p["mean"], p["phi"])
+            return (
+                float(p["mean"]),
+                float(beta_dist.ppf(0.05, a, b)),
+                float(beta_dist.ppf(0.95, a, b)),
+            )
+        if kind == "point":
+            v = float(p["value"])
+            return v, v, v
+        raise ValueError(kind)
+
+    baseline: dict[str, float] = {}
+    lows: dict[str, float] = {}
+    highs: dict[str, float] = {}
+    for name, p in spec["parameters"].items():
+        mid, lo, hi = _baseline_and_bounds(name, p)
+        baseline[name] = mid
+        lows[name] = lo
+        highs[name] = hi
+
+    def scalar_cost(d: dict) -> float:
+        arr = {k: np.asarray(v, dtype=float) for k, v in d.items()}
+        return float(outcomes(arr)["cost_per_death_averted"])
+
+    top5_names = list(tornado.head(5)["input"])
+    one_way = one_way_sensitivity(
+        baseline, lows, highs, scalar_cost, inputs=top5_names
+    )
+    one_way
+    return baseline, highs, lows, one_way, top5_names
+
+
+@app.cell
+def _(fig_dir, one_way, plt):
+    from matplotlib.lines import Line2D
+
+    labels = {
+        "malaria_deaths_per_1000_py": "Baseline malaria mortality",
+        "usage_rate": "Usage rate",
+        "cost_per_net": "Cost per net",
+        "years_of_net_efficacy": "Years of net efficacy",
+        "protective_efficacy": "Protective efficacy",
+        "nets_per_person_covered": "Nets per person covered",
+        "philanthropic_cost_share": "Philanthropic cost share",
+    }
+    ordered_ow = one_way.sort_values("swing", ascending=True)
+    base = float(ordered_ow["baseline"].iloc[0])
+
+    fig3, ax3 = plt.subplots(figsize=(8, 4.2))
+    for i, r in enumerate(ordered_ow.itertuples()):
+        lo, hi = r.outcome_at_low, r.outcome_at_high
+        left, right = min(lo, hi), max(lo, hi)
+        ax3.barh(i, right - left, left=left, height=0.55, color="#3b6d9a", alpha=0.85)
+        ax3.plot(lo, i, "o", color="#1a3a55", markersize=5, zorder=3)
+        ax3.plot(hi, i, "s", color="#c47b3a", markersize=5, zorder=3)
+
+    ax3.axvline(base, color="black", linestyle="--", linewidth=1)
+    ax3.set_yticks(range(len(ordered_ow)))
+    ax3.set_yticklabels([labels.get(n, n) for n in ordered_ow["input"]])
+    ax3.set_xlabel("Cost per under-5 death averted (USD)")
+    ax3.set_title("One-way sensitivity: top 5 drivers (Guinea AMF)")
+    ax3.legend(
+        handles=[
+            Line2D(
+                [0],
+                [0],
+                marker="o",
+                color="w",
+                markerfacecolor="#1a3a55",
+                markersize=7,
+                label="at input low",
+            ),
+            Line2D(
+                [0],
+                [0],
+                marker="s",
+                color="w",
+                markerfacecolor="#c47b3a",
+                markersize=7,
+                label="at input high",
+            ),
+            Line2D(
+                [0],
+                [0],
+                color="black",
+                linestyle="--",
+                label=f"baseline ${base:,.0f}",
+            ),
+        ],
+        frameon=False,
+        loc="lower right",
+    )
+    fig3.tight_layout()
+    fig3.savefig(fig_dir / "one_way_tornado.png", dpi=160)
+    fig3
+    return ax3, base, fig3, labels, ordered_ow
+
+
+@app.cell
+def _(mo, one_way, summary, tornado):
     top5 = tornado.head(5)
     lines = "\n".join(
         f"        {i}. `{r.input}` (ρ={r.spearman:+.2f})"
         for i, r in enumerate(top5.itertuples(), 1)
     )
+    ow_lines = "\n".join(
+        f"        {i}. `{r.input}` swing ${r.swing:,.0f} "
+        f"(${r.outcome_at_low:,.0f}–${r.outcome_at_high:,.0f})"
+        for i, r in enumerate(one_way.itertuples(), 1)
+    )
     mo.md(
         f"""
-        ## Day 2 status
+        ## Part 1 status
 
-        Figures written to `figures/cea_distribution.png` and `figures/tornado.png`.
+        Figures: `cea_distribution.png`, `tornado.png`, `one_way_tornado.png`.
         Decision write-up is in `brief.md`.
 
         Median **${summary['median']:,.0f}** (5–95%: ${summary['p5']:,.0f}–${summary['p95']:,.0f}).
         Share below $5k: **{summary['share_below_5000']:.0%}**.
 
-        Top drivers:
+        Spearman top drivers:
 {lines}
+
+        One-way swings (top 5 by |ρ|, ordered by swing):
+{ow_lines}
         """
     )
-    return lines, top5
+    return lines, ow_lines, top5
 
 
 if __name__ == "__main__":

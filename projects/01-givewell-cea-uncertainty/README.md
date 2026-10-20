@@ -23,7 +23,7 @@ Requires local workbooks under `data/raw/givewell/` (gitignored): AMF / HKI / Ma
 ## Deliverables
 
 - [x] `parameters.yaml` — Guinea AMF cells with sources
-- [x] Part 1 Monte Carlo + tornado (`figures/cea_distribution.png`, `figures/tornado.png`)
+- [x] Part 1 Monte Carlo + Spearman tornado + one-way sensitivity (`figures/cea_distribution.png`, `figures/tornado.png`, `figures/one_way_tornado.png`; `one_way_sensitivity.csv`)
 - [x] Part 2 ranks (`portfolio_ce_ranges.csv`, `portfolio_charity_level.csv`, `portfolio_pairwise_top8.csv`)
 - [x] Part 3 TCF CE-screen proxy (`portfolio_fund_eligibility.csv`; P(clear 6× / 8×))
 - [x] Portfolio figures (`figures/portfolio_*.png`)

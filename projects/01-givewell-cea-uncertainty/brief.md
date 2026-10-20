@@ -76,11 +76,12 @@ A point estimate can look precise while hiding that two or three assumptions do 
 2. Represent each uncertain input as a distribution (mostly triangular on GiveWell low / mode / high; betas where shares are bounded).
 3. Draw all inputs **independently**, **20,000** times (seed fixed for reproducibility).
 4. Summarize the outcome distribution (median, percentiles, share below working dollar bars).
-5. **Tornado:** Spearman rank correlation of each input with log₁₀(cost per death).
+5. **Rank-correlation tornado:** Spearman ρ of each input with log₁₀(cost per death) across the Monte Carlo draws.
+6. **One-way sensitivity** on the top five Spearman drivers: hold all other inputs at their best guess; move the focal input to its low and high (triangular left/right, or 5th/95th of the beta for usage); record cost per death at each end.
 
 **Calibration check.** With every input fixed at GiveWell’s best guess (distribution mode), the chain reproduces ≈ $2,225 (±10%).
 
-**Code.** `marimo edit projects/01-givewell-cea-uncertainty/notebook.py` (figures written to `figures/cea_distribution.png`, `figures/tornado.png`).
+**Code.** `marimo edit projects/01-givewell-cea-uncertainty/notebook.py` (figures: `cea_distribution.png`, `tornado.png`, `one_way_tornado.png`).
 
 **Intentionally left out of the main outcome:** Guinea’s large **funging** adjustment (~−30%), deaths averted among people age 5+, long-term income effects from fewer malaria cases, and correlated uncertainty between inputs. After GiveWell’s full adjustments, their “final cost per life saved” for Guinea is about **$2,941**.
 
@@ -125,7 +126,38 @@ This is a **rank-correlation tornado**: a sensitivity chart that shows which unc
 
 **How to use it for a decision.** Focus on the longest bars first. Here, **baseline malaria mortality** and **usage** dominate; philanthropic cost share barely matters. A skeptical review should pressure-test those top drivers—not every cell in the spreadsheet equally. If you became convinced that usage is much lower *and* baseline mortality much lower than GiveWell’s range, the cost-per-death distribution in Figure 1 would shift right (worse); if those hold up, the “usually under $5k” conclusion is harder to overturn.
 
-**What this chart is not.** It is not a classic one-way tornado that moves one input to its low/high while freezing all others. Here every input varies together in the Monte Carlo; the bars measure co-movement with the outcome, not “dollar change if I bump X alone.” It also does not say which input is *most uncertain* in the real world—only which ones, given the ranges we used, most shape the simulated answer.
+**What this chart is not.** It is not a classic one-way tornado that moves one input to its low/high while freezing all others. Here every input varies together in the Monte Carlo; the bars measure co-movement with the outcome, not “dollar change if I bump X alone.” Figure 3 supplies that classic one-way view. Figure 2 also does not say which input is *most uncertain* in the real world—only which ones, given the ranges we used, most shape the simulated answer.
+
+#### One-way sensitivity on the top five drivers
+
+Hold every input at its GiveWell best guess (~**$2,224** per U5 death—the calibration point), then move **one** input at a time to the low and high of its uncertainty range. The bar is the resulting span of cost per death; circle = outcome at the input’s low end; square = outcome at the input’s high end.
+
+| Input (moved alone) | At input low | At input high | Swing |
+|---|---:|---:|---:|
+| Baseline malaria mortality | $3,771 | $1,619 | **$2,152** |
+| Cost per net | $1,858 | $3,021 | $1,163 |
+| Years of net efficacy | $2,914 | $1,901 | $1,014 |
+| Usage rate (5th–95th of beta) | $2,790 | $1,867 | $923 |
+| Protective efficacy | $2,693 | $1,930 | $762 |
+
+![One-way tornado: cost per death when each top driver is moved alone](figures/one_way_tornado.png)
+
+*Figure 3. Classic one-way tornado for the five largest Spearman drivers. Baseline (dashed) ≈ GiveWell’s $2,225 point.*
+
+#### Takeaway from the two sensitivity approaches
+
+**Both say the same decision story.** Baseline malaria mortality is the input that most moves cost per under-5 death averted. Usage and cost matter next. No single lever alone pushes the answer past ~$4,000—overturning “usually under $5k” still needs several adverse assumptions stacked.
+
+**Where they disagree is ranking of #2 vs #3,** and that is informative, not a bug:
+
+| Approach | What it asks | Top drivers here |
+|---|---|---|
+| **Spearman (Monte Carlo)** | When *everything* varies together, which inputs co-move with the outcome smear? | Mortality → **usage** → cost |
+| **One-way** | If I bump *only* this input to its low/high, how far does the dollar answer move? | Mortality → **cost** → years → usage |
+
+Usage looks bigger in Monte Carlo because it is a high-leverage share in the chain and varies in every draw; cost looks bigger one-way because its published triangular range is wider than the tight beta used for usage (no GiveWell CI on usage; we use that beta’s 5th–95th).
+
+**Practical takeaway for a reviewer.** Pressure-test **mortality and usage** first (epidemiology / real-world net use)—those dominate the joint-uncertainty story. Check **cost per net** next as a wide, isolated swing. Don’t treat the two tornado orderings as conflicting conclusions; treat them as joint vs isolated views of the same model.
 
 ### What would change my mind (Guinea AMF)
 
@@ -188,19 +220,19 @@ AMF Guinea (~23× point), the focus of Part 1, sits around **rank 10–12** on p
 
 ![Top 20 program geographies: CE point and uncertainty range](figures/portfolio_ce_ranges.png)
 
-*Figure 3. Orange dots = GiveWell point estimates. Horizontal bars = 25th–75th CE ranges. Vertical lines mark the 6× (current) and 8× (legacy) funding bars.*
+*Figure 4. Orange dots = GiveWell point estimates. Horizontal bars = 25th–75th CE ranges. Vertical lines mark the 6× (current) and 8× (legacy) funding bars.*
 
 ![Probability each initiative is ranked #1 under uncertainty](figures/portfolio_p_rank1.png)
 
-*Figure 4. Only a handful of initiatives have a non-trivial chance of being #1; HKI Niger dominates.*
+*Figure 5. Only a handful of initiatives have a non-trivial chance of being #1; HKI Niger dominates.*
 
 ![Point-estimate rank vs median Monte Carlo rank](figures/portfolio_rank_scatter.png)
 
-*Figure 5. Points lie near the diagonal: the ordering is highly stable in expectation even though individual mid-rank swaps are common.*
+*Figure 6. Points lie near the diagonal: the ordering is highly stable in expectation even though individual mid-rank swaps are common.*
 
 ![Charity-level probability of owning the best geography](figures/portfolio_charity_p_rank1.png)
 
-*Figure 6. Collapsing to “best geography per charity,” HKI leads; New Incentives is the main runner-up; AMF and Malaria Consortium rarely hold the single top cell.*
+*Figure 7. Collapsing to “best geography per charity,” HKI leads; New Incentives is the main runner-up; AMF and Malaria Consortium rarely hold the single top cell.*
 
 Pairwise among the point top tier: HKI Niger beats New Incentives Sokoto in ~87% of draws; Sokoto vs HKI Mali is closer (~74% for Sokoto). Full table: `portfolio_pairwise_top8.csv`.
 
@@ -252,19 +284,19 @@ Geos that sit just above 6× on the point estimate are the fragile ones: e.g. Ne
 
 ![Probability each geography clears the 6× funding bar](figures/portfolio_p_clear_6x.png)
 
-*Figure 7. P(CE ≥ 6×) for all 87 Top Charity program geographies. Color = charity.*
+*Figure 8. P(CE ≥ 6×) for all 87 Top Charity program geographies. Color = charity.*
 
 ![Contested geographies near the 6× bar](figures/portfolio_p_clear_6x_contested.png)
 
-*Figure 8. Contested band (roughly 5–95% clear probability)—where uncertainty can flip “in” vs “out” of a mechanical CE screen.*
+*Figure 9. Contested band (roughly 5–95% clear probability)—where uncertainty can flip “in” vs “out” of a mechanical CE screen.*
 
 ![Number of geographies clearing 6× vs 8× each draw](figures/portfolio_n_clearing_bar.png)
 
-*Figure 9. How many initiative-geographies clear each bar per draw. Eligible-set size is fairly stable; moving from 8× to 6× adds a block of geos.*
+*Figure 10. How many initiative-geographies clear each bar per draw. Eligible-set size is fairly stable; moving from 8× to 6× adds a block of geos.*
 
 ![Mean number of clearing geos by charity](figures/portfolio_charity_mean_clear_6x.png)
 
-*Figure 10. Which Top Charities populate the CE-eligible set on average. Malaria Consortium contributes the most geos per draw; New Incentives contributes fewer despite having more states in the table.*
+*Figure 11. Which Top Charities populate the CE-eligible set on average. Malaria Consortium contributes the most geos per draw; New Incentives contributes fewer despite having more states in the table.*
 
 ### What would change my mind (TCF CE screen)
 

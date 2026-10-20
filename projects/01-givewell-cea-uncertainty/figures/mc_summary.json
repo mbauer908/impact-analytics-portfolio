@@ -50,5 +50,52 @@
       "spearman": 0.052117446457293604,
       "abs": 0.052117446457293604
     }
+  ],
+  "one_way_top5": [
+    {
+      "input": "malaria_deaths_per_1000_py",
+      "baseline": 2223.93065592082,
+      "low_value": 0.88,
+      "high_value": 2.05,
+      "outcome_at_low": 3770.5733393566625,
+      "outcome_at_high": 1618.5875798213967,
+      "swing": 2151.985759535266
+    },
+    {
+      "input": "cost_per_net",
+      "baseline": 2223.93065592082,
+      "low_value": 3.29,
+      "high_value": 5.35,
+      "outcome_at_low": 1858.0524545067733,
+      "outcome_at_high": 3021.453079517093,
+      "swing": 1163.4006250103198
+    },
+    {
+      "input": "years_of_net_efficacy",
+      "baseline": 2223.93065592082,
+      "low_value": 1.5,
+      "high_value": 2.3,
+      "outcome_at_low": 2914.2515072589495,
+      "outcome_at_high": 1900.5988090819242,
+      "swing": 1013.6526981770253
+    },
+    {
+      "input": "usage_rate",
+      "baseline": 2223.93065592082,
+      "low_value": 0.502148955951087,
+      "high_value": 0.7503660376064282,
+      "outcome_at_low": 2790.1607613151973,
+      "outcome_at_high": 1867.1904684004235,
+      "swing": 922.9702929147738
+    },
+    {
+      "input": "protective_efficacy",
+      "baseline": 2223.93065592082,
+      "low_value": 0.38,
+      "high_value": 0.53,
+      "outcome_at_low": 2692.527061892677,
+      "outcome_at_high": 1930.4911009796551,
+      "swing": 762.0359609130219
+    }
   ]
 }

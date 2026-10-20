@@ -70,3 +70,39 @@ def spearman_tornado(df: pd.DataFrame, outcome: str, inputs: list[str]) -> pd.Da
         rows.append({"input": col, "spearman": rho, "abs": abs(rho)})
     out = pd.DataFrame(rows).sort_values("abs", ascending=False)
     return out.reset_index(drop=True)
+
+
+def one_way_sensitivity(
+    baseline: Mapping[str, float],
+    lows: Mapping[str, float],
+    highs: Mapping[str, float],
+    outcome_fn: Callable[[dict[str, float]], float],
+    inputs: list[str] | None = None,
+) -> pd.DataFrame:
+    """Classic one-way tornado: move one input to low/high; hold others at baseline.
+
+    ``outcome_fn`` takes a flat dict of scalar inputs and returns a scalar outcome.
+    """
+    names = list(inputs) if inputs is not None else list(lows)
+    base_out = float(outcome_fn(dict(baseline)))
+    rows = []
+    for name in names:
+        low_d = dict(baseline)
+        high_d = dict(baseline)
+        low_d[name] = float(lows[name])
+        high_d[name] = float(highs[name])
+        out_low = float(outcome_fn(low_d))
+        out_high = float(outcome_fn(high_d))
+        rows.append(
+            {
+                "input": name,
+                "baseline": base_out,
+                "low_value": float(lows[name]),
+                "high_value": float(highs[name]),
+                "outcome_at_low": out_low,
+                "outcome_at_high": out_high,
+                "swing": abs(out_high - out_low),
+            }
+        )
+    out = pd.DataFrame(rows).sort_values("swing", ascending=False)
+    return out.reset_index(drop=True)
