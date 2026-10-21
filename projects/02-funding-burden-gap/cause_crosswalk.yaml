@@ -1,12 +1,58 @@
-# Map OECD CRS purpose codes to a GBD cause family.
-# Fill after you pick the family on Day 5. This stub is malaria-oriented.
+# CRS purpose codes → malaria burden family.
+# Locked before ranking: only a malaria-specific purpose code enters the primary aid total.
 
 cause_family: malaria
-gbd_cause_name: Malaria
+burden_source: >
+  WHO GHO MALARIA_EST_DEATHS (2021) for the primary rank.
+  IHME GBD Study 2023 malaria DALYs, year 2021, all ages, both sexes,
+  for the second rank. Extract: data/raw/funding/gbd_malaria_dalys_2021.csv
+  (gitignored).
+burden_note: >
+  The primary ranking uses WHO deaths so the country set stays the one
+  locked in before the DALY file arrived. The DALY ranking uses the same
+  countries, the same aid total, and the same $100k floor. It asks whether
+  swapping the burden unit changes who sits at the top.
+
+aid_source: >
+  Primary aid total = OECD CRS purpose 12262 (DAC disbursements, constant USD,
+  annual average 2019–2022) plus the Global Fund malaria country allocation
+  for 2020–2022 divided by three. The division by three is an assumption:
+  the Fund publishes a three-year envelope, not an annual disbursement.
+  Yemen has no country allocation; its Global Fund figure is the mean of
+  the country-reported Global Fund amounts in WHO World malaria report 2024,
+  Annex 4C, 2021–2023. Government malaria-program spending from that annex
+  is reported beside the rank and is not added to the aid total.
+  The CRS-only rank is kept as a comparison. It is not the result.
+
 crs_purpose_codes:
-  - {code: 12250, label: "Infectious disease control (too broad — split or note)"}
-  - {code: 12281, label: "Health personnel development (usually exclude)"}
-notes: >
-  CRS malaria-specific purpose codes have changed over time. Prefer purpose
-  names containing 'malaria' plus a documented include/exclude list.
-  Do not pretend 12250 is malaria-only.
+  - code: "12262"
+    label: Malaria control
+    role: include
+    note: Prevention and control of malaria. Primary aid total.
+  - code: "12250"
+    label: Infectious disease control
+    role: exclude
+    note: >
+      Too broad (many diseases besides malaria). Not in the primary total.
+      Mentioned only as a crosswalk sensitivity, not as malaria aid.
+  - code: "12263"
+    label: Tuberculosis control
+    role: exclude
+  - code: "72010"
+    label: Material relief assistance and services
+    role: exclude
+    note: Humanitarian purpose family. Not mixed into the malaria total.
+
+ranking:
+  min_deaths: 100
+  epsilon_usd: 100000
+  primary_metric: log(deaths) - log(crs_12262 + global_fund_annual + epsilon)
+  secondary_metric: deaths per million USD of that same aid total
+  daly_metric: log(dalys) - log(crs_12262 + global_fund_annual + epsilon)
+  comparison_metric: the same formulas using CRS 12262 only
+  peer_isos: [NGA, COD, NER]
+  peer_note: >
+    Aid-amount benchmark is the median dollars of the primary aid total
+    per WHO death, and per DALY, among Nigeria, the DRC, and Niger.
+    Additional aid is that rate times burden, minus aid already counted.
+    It is not a cost per death averted.

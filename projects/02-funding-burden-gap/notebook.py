@@ -13,46 +13,32 @@ def _():
     import pandas as pd
     import yaml
 
+    proj = Path(__file__).resolve().parent
     mo.md(
         """
-        # Funding vs burden gap
+        # Funding vs burden: malaria
 
-        Pipeline (Day 5–6):
-
-        1. Download GBD DALYs for one cause family, most recent comparable year.
-        2. Download OECD CRS disbursements; filter by `cause_crosswalk.yaml`.
-        3. Inner join on ISO3; compute DALYs per dollar and log-residual neglectedness.
-        4. Map and write the top-20 table into `brief.md`.
-
-        Put extracts in `data/raw/` (gitignored) and a small processed table in
-        `data/processed/funding_burden_preview.csv` if it is small enough to commit.
+        Rules live in `cause_crosswalk.yaml`. The ranked table and figures
+        are produced by `run_funding_gap.py`. Aid is OECD purpose 12262 plus
+        an annualized Global Fund malaria allocation. Burden is WHO deaths,
+        with a second rank on IHME GBD 2023 malaria DALYs for 2021.
         """
     )
-    return Path, mo, pd, yaml
+    return Path, mo, pd, proj, yaml
 
 
 @app.cell
-def _(Path, yaml):
-    crosswalk = yaml.safe_load(
-        (Path(__file__).resolve().parent / "cause_crosswalk.yaml").read_text()
-    )
+def _(proj, yaml):
+    crosswalk = yaml.safe_load((proj / "cause_crosswalk.yaml").read_text())
     crosswalk
     return (crosswalk,)
 
 
 @app.cell
-def _(mo, pd):
-    preview = pd.DataFrame(
-        {
-            "iso3": ["EXAMPLE"],
-            "dalys": [None],
-            "aid_usd": [None],
-            "dalys_per_million_usd": [None],
-        }
-    )
-    mo.md("Replace this stub frame with the joined GBD–CRS table.")
-    preview
-    return (preview,)
+def _(pd, proj):
+    ranked = pd.read_csv(proj / "funding_burden_ranked.csv")
+    ranked.head(15)
+    return (ranked,)
 
 
 if __name__ == "__main__":

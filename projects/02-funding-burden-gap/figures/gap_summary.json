@@ -1,0 +1,265 @@
+{
+  "n_countries": 47,
+  "min_deaths": 100,
+  "epsilon_usd": 100000,
+  "zero_crs_countries": 11,
+  "zero_combined_aid_countries": 1,
+  "gf_imputed_countries": [
+    "Gabon",
+    "Yemen"
+  ],
+  "peer_usd_per_death": 1496.9524278981908,
+  "peer_usd_per_daly": 18.12536161311756,
+  "spearman_log_gap_vs_deaths_per_usd": 1.0,
+  "spearman_death_rank_vs_daly_rank": 0.8148704902867716,
+  "spearman_combined_rank_vs_crs_only_rank": 0.4438020351526365,
+  "top10_overlap_deaths_vs_dalys": 7,
+  "top10_overlap_combined_vs_crs_only": 3,
+  "top5": [
+    {
+      "country": "Equatorial Guinea",
+      "deaths": 795.0,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 0.0,
+      "aid_usd": 0.0,
+      "gf_amount_source": "none",
+      "rank_log_gap_crs": 10
+    },
+    {
+      "country": "Gabon",
+      "deaths": 428.0,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 19668.666666666668,
+      "aid_usd": 19668.666666666668,
+      "gf_amount_source": "imputed_who_annex_4c_country_reported_global_fund",
+      "rank_log_gap_crs": 13
+    },
+    {
+      "country": "Yemen",
+      "deaths": 2652.0,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 2590522.3333333335,
+      "aid_usd": 2590522.3333333335,
+      "gf_amount_source": "imputed_who_annex_4c_country_reported_global_fund",
+      "rank_log_gap_crs": 5
+    },
+    {
+      "country": "Nigeria",
+      "deaths": 190761.0,
+      "crs_aid_usd": 90246011.25000001,
+      "gf_annual_usd": 139297909.0,
+      "aid_usd": 229543920.25,
+      "gf_amount_source": "global_fund_country_allocation",
+      "rank_log_gap_crs": 18
+    },
+    {
+      "country": "Niger",
+      "deaths": 34234.0,
+      "crs_aid_usd": 15431164.75,
+      "gf_annual_usd": 35815504.666666664,
+      "aid_usd": 51246669.416666664,
+      "gf_amount_source": "global_fund_country_allocation",
+      "rank_log_gap_crs": 16
+    }
+  ],
+  "daly_top5": [
+    {
+      "country": "Equatorial Guinea",
+      "rank_log_gap": 1,
+      "rank_daly_log_gap": 1,
+      "rank_daly_log_gap_crs": 10,
+      "dalys": 91214.55853,
+      "aid_usd": 0.0
+    },
+    {
+      "country": "Gabon",
+      "rank_log_gap": 2,
+      "rank_daly_log_gap": 2,
+      "rank_daly_log_gap_crs": 11,
+      "dalys": 43156.59079,
+      "aid_usd": 19668.666666666668
+    },
+    {
+      "country": "Yemen",
+      "rank_log_gap": 3,
+      "rank_daly_log_gap": 3,
+      "rank_daly_log_gap_crs": 5,
+      "dalys": 243432.276,
+      "aid_usd": 2590522.3333333335
+    },
+    {
+      "country": "Nigeria",
+      "rank_log_gap": 4,
+      "rank_daly_log_gap": 4,
+      "rank_daly_log_gap_crs": 15,
+      "dalys": 17370912.26,
+      "aid_usd": 229543920.25
+    },
+    {
+      "country": "Niger",
+      "rank_log_gap": 5,
+      "rank_daly_log_gap": 5,
+      "rank_daly_log_gap_crs": 17,
+      "dalys": 2827346.042,
+      "aid_usd": 51246669.416666664
+    }
+  ],
+  "focus": [
+    {
+      "country": "Yemen",
+      "rank_log_gap": 3,
+      "rank_daly_log_gap": 3,
+      "rank_log_gap_crs": 5,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 2590522.3333333335,
+      "gf_amount_source": "imputed_who_annex_4c_country_reported_global_fund",
+      "gov_nmp_usd": NaN,
+      "gov_nmp_years": 0,
+      "addl_aid_from_deaths_usd": 1379395.5054526683,
+      "addl_aid_from_dalys_usd": 1821775.6974709057
+    },
+    {
+      "country": "Nigeria",
+      "rank_log_gap": 4,
+      "rank_daly_log_gap": 4,
+      "rank_log_gap_crs": 18,
+      "crs_aid_usd": 90246011.25000001,
+      "gf_annual_usd": 139297909.0,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 6756309.333333333,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 56016221.84828675,
+      "addl_aid_from_dalys_usd": 85310146.01223719
+    },
+    {
+      "country": "Niger",
+      "rank_log_gap": 5,
+      "rank_daly_log_gap": 5,
+      "rank_log_gap_crs": 16,
+      "crs_aid_usd": 15431164.75,
+      "gf_annual_usd": 35815504.666666664,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 36523373.333333336,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Chad",
+      "rank_log_gap": 7,
+      "rank_daly_log_gap": 14,
+      "rank_log_gap_crs": 1,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 22538003.0,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 940820.0,
+      "gov_nmp_years": 1,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Congo, Democratic Republic of the",
+      "rank_log_gap": 8,
+      "rank_daly_log_gap": 9,
+      "rank_log_gap_crs": 20,
+      "crs_aid_usd": 56412687.50000001,
+      "gf_annual_usd": 131297154.33333333,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 37463027.333333336,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "India",
+      "rank_log_gap": 11,
+      "rank_daly_log_gap": 6,
+      "rank_log_gap_crs": 2,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 21666666.666666668,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 55972406.0,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Central African Republic",
+      "rank_log_gap": 13,
+      "rank_daly_log_gap": 17,
+      "rank_log_gap_crs": 6,
+      "crs_aid_usd": 95304.0,
+      "gf_annual_usd": 19765144.666666668,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 57337.333333333336,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Sudan",
+      "rank_log_gap": 16,
+      "rank_daly_log_gap": 36,
+      "rank_log_gap_crs": 3,
+      "crs_aid_usd": 124663.75,
+      "gf_annual_usd": 36771374.333333336,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 5415827.333333333,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Somalia",
+      "rank_log_gap": 21,
+      "rank_daly_log_gap": 28,
+      "rank_log_gap_crs": 8,
+      "crs_aid_usd": 16919.75,
+      "gf_annual_usd": 11479533.333333334,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 290242.3333333333,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Congo",
+      "rank_log_gap": 24,
+      "rank_daly_log_gap": 23,
+      "rank_log_gap_crs": 7,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 11495057.666666666,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 1949200.6666666667,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Togo",
+      "rank_log_gap": 26,
+      "rank_daly_log_gap": 24,
+      "rank_log_gap_crs": 4,
+      "crs_aid_usd": 8992.0,
+      "gf_annual_usd": 20057566.000000004,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 2078063.0,
+      "gov_nmp_years": 1,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    },
+    {
+      "country": "Pakistan",
+      "rank_log_gap": 43,
+      "rank_daly_log_gap": 11,
+      "rank_log_gap_crs": 12,
+      "crs_aid_usd": 0.0,
+      "gf_annual_usd": 11474886.333333334,
+      "gf_amount_source": "global_fund_country_allocation",
+      "gov_nmp_usd": 53363200.333333336,
+      "gov_nmp_years": 3,
+      "addl_aid_from_deaths_usd": 0.0,
+      "addl_aid_from_dalys_usd": 0.0
+    }
+  ]
+}
