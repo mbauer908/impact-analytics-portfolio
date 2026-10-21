@@ -32,4 +32,4 @@ source .venv/bin/activate
 python projects/02-funding-burden-gap/run_funding_gap.py
 ```
 
-Raw CRS, Global Fund, WHO annex, and IHME downloads are cached under `data/raw/funding/` (gitignored).
+The IHME malaria DALY extract is `data/raw/funding/gbd_malaria_dalys_2021.csv`. Other raw CRS, Global Fund, and WHO downloads under `data/raw/funding/` stay gitignored.

@@ -5,8 +5,7 @@ cause_family: malaria
 burden_source: >
   WHO GHO MALARIA_EST_DEATHS (2021) for the primary rank.
   IHME GBD Study 2023 malaria DALYs, year 2021, all ages, both sexes,
-  for the second rank. Extract: data/raw/funding/gbd_malaria_dalys_2021.csv
-  (gitignored).
+  for the second rank. Extract: data/raw/funding/gbd_malaria_dalys_2021.csv.
 burden_note: >
   The primary ranking uses WHO deaths so the country set stays the one
   locked in before the DALY file arrived. The DALY ranking uses the same

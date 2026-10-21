@@ -20,6 +20,8 @@ build/
 data/raw/**
 data/processed/**
 !data/raw/.gitkeep
+!data/raw/funding/
+!data/raw/funding/gbd_malaria_dalys_2021.csv
 !data/processed/.gitkeep
 !data/fixtures/**
 *.parquet
