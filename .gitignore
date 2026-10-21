@@ -16,12 +16,14 @@ build/
 .env.*
 !.env.example
 
-# Local data dumps (keep small fixtures)
+# Local data dumps. The completed analyses keep their public inputs.
 data/raw/**
 data/processed/**
 !data/raw/.gitkeep
 !data/raw/funding/
-!data/raw/funding/gbd_malaria_dalys_2021.csv
+!data/raw/funding/**
+!data/raw/givewell/
+!data/raw/givewell/**
 !data/processed/.gitkeep
 !data/fixtures/**
 *.parquet

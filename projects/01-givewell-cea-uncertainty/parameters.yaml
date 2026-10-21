@@ -1,6 +1,6 @@
 # AMF LLIN chain parameterized from GiveWell's public CEA (Guinea).
 # Source workbook: https://docs.google.com/spreadsheets/d/1VEtie59TgRvZSEVjfG7qcKBKcQyJn8zO91Lau9YNqXc
-# Local copy: data/raw/givewell/amf-cea.xlsx (gitignored).
+# Local copy: data/raw/givewell/amf-cea.xlsx.
 #
 # The xlsx "Build your own moral weights! (public).xlsx" is GiveWell's moral-weights
 # *tool*, not this CEA. It links the AMF sheet above and reports Guinea at 22.6x cash.

@@ -18,7 +18,7 @@ marimo edit projects/01-givewell-cea-uncertainty/notebook.py   # Part 1
 python projects/01-givewell-cea-uncertainty/run_portfolio_ranks.py  # Parts 2–3
 ```
 
-Requires local workbooks under `data/raw/givewell/` (gitignored): AMF / HKI / Malaria Consortium / New Incentives CEAs plus the moral-weights tool export.
+Workbooks are in `data/raw/givewell/`: AMF, HKI, Malaria Consortium, New Incentives, and the moral-weights tool. They are GiveWell’s public spreadsheets.
 
 ## Deliverables
 

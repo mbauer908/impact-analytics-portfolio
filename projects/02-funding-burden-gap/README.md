@@ -32,4 +32,4 @@ source .venv/bin/activate
 python projects/02-funding-burden-gap/run_funding_gap.py
 ```
 
-The IHME malaria DALY extract is `data/raw/funding/gbd_malaria_dalys_2021.csv`. Other raw CRS, Global Fund, and WHO downloads under `data/raw/funding/` stay gitignored.
+Inputs are in `data/raw/funding/`: the OECD CRS extract, WHO malaria deaths, ISO names, country boundaries, both Global Fund allocation workbooks, WHO Annex 4C, and the IHME malaria DALY extract.
