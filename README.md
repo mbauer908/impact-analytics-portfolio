@@ -2,7 +2,7 @@
 
 Personal analytical work in global health, philanthropy, and climate / social impact. Each project is a **decision-grade MVP**: a Marimo notebook, a short written brief, and a small set of figures an evaluator or grantmaker could actually use.
 
-This repo is built for roles like GiveWell research, evidence synthesis, and climate / energy-transition analysis — not as a dump of unfinished EDA.
+It is written for research roles in program evaluation, evidence synthesis, and climate and energy analysis.
 
 ## Projects
 
