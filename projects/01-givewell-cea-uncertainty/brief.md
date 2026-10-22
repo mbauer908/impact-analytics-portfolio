@@ -2,7 +2,7 @@
 
 ### TLDR
 
-Against Malaria Foundation bed nets in Guinea stay near $2,600 per under-5 death averted, and under $5,000 in about 99% of draws. Helen Keller’s vitamin A program in Niger stays first among 87 GiveWell program-geographies in about 84% of draws, while about 18 geographies sit close enough to a screen of 6 times GiveWell’s benchmark that uncertainty can move them across it.
+Against Malaria Foundation bed nets in Guinea stay near $2,600 per under-5 death averted, and under $5,000 in about 99% of draws. Helen Keller’s vitamin A program in Niger stays first among 87 GiveWell program-geographies in about 84% of draws, while about 18 geographies sit close enough to a cutoff of 6 times the cost-effectiveness of cash transfers that uncertainty can move them across it.
 
 ---
 
@@ -270,9 +270,9 @@ GiveWell’s Top Charities Fund grants only to its top charities: the Against Ma
 
 ### Decision
 
-**About half of 87 program-geographies clear a screen of 6 times GiveWell’s benchmark. About 18 sit close enough that uncertainty can move them across it.**
+**About half of 87 program-geographies clear a cutoff of 6 times the cost-effectiveness of cash transfers. About 18 sit close enough that uncertainty can move them across it.**
 
-On the published best guess, 50 of 87 are at or above 6 times. In a typical draw, about 48 still clear. Malaria Consortium’s seasonal malaria program clears in essentially all 18 of its geographies. New Incentives clears in 11 of 37 states on the best guess. Against Malaria Foundation bed nets in Guinea clear both the 6-times screen and a stricter 8-times screen in essentially every draw.
+On the published best guess, 50 of 87 are at or above 6 times that benchmark. In a typical draw, about 48 still clear. Malaria Consortium’s seasonal malaria program clears in essentially all 18 of its geographies. New Incentives clears in 11 of 37 states on the best guess. Against Malaria Foundation bed nets in Guinea clear both the 6-times cutoff and a stricter 8-times cutoff in essentially every draw.
 
 This is how often a geography stays above the published bar. It is not a prediction of which grant GiveWell will make.
 
