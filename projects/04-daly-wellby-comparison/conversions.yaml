@@ -1,20 +1,78 @@
-# Explicit moral / unit conversions. Every rank change should trace to a row here.
+# Unit conversions for the DALY vs WELLBY ranking.
+# Life-saving costs are GiveWell Simple CEA, cost per under-5 death averted.
+# WELLBYs for cash and psychotherapy are Happier Lives Institute published totals.
+# They are not rebuilt here.
 
-charities:
-  AMF:
-    cost_per_death_averted: null  # from project 01 or GiveWell
-    years_of_life_per_death_averted: 40
-  SMC:
-    cost_per_death_averted: null
-    years_of_life_per_death_averted: 45
-  HKI_VAS:
-    cost_per_death_averted: null
-    years_of_life_per_death_averted: 50
-  GiveDirectly:
-    cost_per_household: 1000
-    consumption_gain_share: 0.3
-    wellbys_per_log_income: null  # from HLI / literature
+life_years:
+  # One under-5 malaria death is credited with this many years of life.
+  # Helen Keller's vitamin A death uses GiveWell's moral-weight ratio
+  # (118.73 / 116.25) times this number. The rank among the three
+  # life-saving programs does not depend on this choice. The WELLBY
+  # value of a saved year, below, is what moves StrongMinds past them.
+  years_per_under5_malaria_death: 37
+  givewell_u5_malaria_doublings: 116.25262
+  givewell_u5_vitamin_a_doublings: 118.73259
+  source: >
+    GiveWell moral-weights tool, "Your moral weights": an under-5 malaria
+    death equals 116.25 person-years of doubled consumption; an under-5
+    vitamin A death equals 118.73. The 37 years is this note's life-table
+    credit for an under-5 death, not a cell in the workbook.
 
 wellby:
-  wellbys_per_year_of_healthy_life: 6.0  # placeholder — cite HLI/Frijters before using
-  notes: Sensitivity on this single number is the core result of the project.
+  # A saved year lived at 5/10, with the neutral point at 0 on a 0–10 scale.
+  # The script sweeps this factor. That sweep is the result.
+  wellbys_per_year_of_life: 5.0
+  sweep_min: 0.0
+  sweep_max: 8.0
+  sweep_step: 0.05
+
+charities:
+  - id: hki_niger
+    name: Helen Keller International
+    program: Vitamin A supplementation
+    geography: Niger
+    kind: life_saving
+    death_weight: vitamin_a
+    cost_per_u5_death_usd: 678.1470666
+    cost_source: >
+      GiveWell HKI VAS Simple CEA, Niger column, "Cost per under-five
+      death averted." This is the geography with HKI's highest
+      multiples-of-cash result in the moral-weights tool (58.9×).
+  - id: smc_sokoto
+    name: Malaria Consortium
+    program: Seasonal malaria chemoprevention
+    geography: Nigeria, Sokoto
+    kind: life_saving
+    death_weight: malaria
+    cost_per_u5_death_usd: 1510.172535
+    cost_source: >
+      GiveWell Malaria Consortium Simple CEA, Sokoto column, "Cost per
+      under-five death averted." Highest SMC multiples-of-cash cell (29.6×).
+  - id: amf_guinea
+    name: Against Malaria Foundation
+    program: Insecticide-treated nets
+    geography: Guinea
+    kind: life_saving
+    death_weight: malaria
+    cost_per_u5_death_usd: 2224.708132
+    cost_source: >
+      GiveWell AMF Simple CEA, Guinea column, "Cost per under-five death
+      averted" ($2,225). Same geography as project 1.
+  - id: givedirectly
+    name: GiveDirectly
+    program: Cash transfers
+    geography: Low-income households, HLI aggregate
+    kind: wellbeing
+    wellbys_per_1000_usd: 7.55
+    source: >
+      Happier Lives Institute changelog, GiveDirectly version 3 (updated
+      October 2024): 7.55 WELLBYs per $1,000.
+  - id: strongminds
+    name: StrongMinds
+    program: Group psychotherapy
+    geography: Uganda and Zambia
+    kind: wellbeing
+    wellbys_per_1000_usd: 40
+    source: >
+      Happier Lives Institute, November 2024 update: 40 WELLBYs per $1,000,
+      or about $25 per WELLBY.

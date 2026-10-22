@@ -1,0 +1,6 @@
+id,charity,program,geography,kind,cost_basis,n_geographies,cost_per_u5_death_usd,years_per_death,life_years_per_1000,wellbys_per_1000,rank_life_years,rank_wellby
+smc_sokoto,Malaria Consortium,Seasonal malaria chemoprevention,Median of 18 geographies,life_saving,median,18.0,3447.2416355,37.0,10.73321916832598,53.666095841629904,1,1
+hki_niger,Helen Keller International,Vitamin A supplementation,Median of 28 geographies,life_saving,median,28.0,4293.0914385,37.789305995856274,8.802352928466814,44.01176464233407,2,2
+strongminds,StrongMinds,Group psychotherapy,Uganda and Zambia,wellbeing,published,,,0.0,0.0,40.0,4,3
+amf_guinea,Against Malaria Foundation,Insecticide-treated nets,Median of 8 geographies,life_saving,median,8.0,5926.319891,37.0,6.243334933065293,31.216674665326465,3,4
+givedirectly,GiveDirectly,Cash transfers,"Low-income households, HLI aggregate",wellbeing,published,,,0.0,0.0,7.55,4,5

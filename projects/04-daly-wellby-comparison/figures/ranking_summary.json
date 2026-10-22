@@ -1,0 +1,210 @@
+{
+  "wellbys_per_year_of_life": 5.0,
+  "years_per_under5_malaria_death": 37,
+  "ranking_best_geography": [
+    {
+      "id": "hki_niger",
+      "charity": "Helen Keller International",
+      "program": "Vitamin A supplementation",
+      "geography": "Niger",
+      "kind": "life_saving",
+      "cost_basis": "best",
+      "n_geographies": 1.0,
+      "cost_per_u5_death_usd": 678.1470666,
+      "years_per_death": 37.789305995856274,
+      "life_years_per_1000": 55.724352219525294,
+      "wellbys_per_1000": 278.62176109762646,
+      "rank_life_years": 1,
+      "rank_wellby": 1
+    },
+    {
+      "id": "smc_sokoto",
+      "charity": "Malaria Consortium",
+      "program": "Seasonal malaria chemoprevention",
+      "geography": "Nigeria, Sokoto",
+      "kind": "life_saving",
+      "cost_basis": "best",
+      "n_geographies": 1.0,
+      "cost_per_u5_death_usd": 1510.172535,
+      "years_per_death": 37.0,
+      "life_years_per_1000": 24.500511790859715,
+      "wellbys_per_1000": 122.50255895429858,
+      "rank_life_years": 2,
+      "rank_wellby": 2
+    },
+    {
+      "id": "amf_guinea",
+      "charity": "Against Malaria Foundation",
+      "program": "Insecticide-treated nets",
+      "geography": "Guinea",
+      "kind": "life_saving",
+      "cost_basis": "best",
+      "n_geographies": 1.0,
+      "cost_per_u5_death_usd": 2224.708132,
+      "years_per_death": 37.0,
+      "life_years_per_1000": 16.631395133498796,
+      "wellbys_per_1000": 83.15697566749398,
+      "rank_life_years": 3,
+      "rank_wellby": 3
+    },
+    {
+      "id": "strongminds",
+      "charity": "StrongMinds",
+      "program": "Group psychotherapy",
+      "geography": "Uganda and Zambia",
+      "kind": "wellbeing",
+      "cost_basis": "published",
+      "n_geographies": NaN,
+      "cost_per_u5_death_usd": NaN,
+      "years_per_death": 0.0,
+      "life_years_per_1000": 0.0,
+      "wellbys_per_1000": 40.0,
+      "rank_life_years": 4,
+      "rank_wellby": 4
+    },
+    {
+      "id": "givedirectly",
+      "charity": "GiveDirectly",
+      "program": "Cash transfers",
+      "geography": "Low-income households, HLI aggregate",
+      "kind": "wellbeing",
+      "cost_basis": "published",
+      "n_geographies": NaN,
+      "cost_per_u5_death_usd": NaN,
+      "years_per_death": 0.0,
+      "life_years_per_1000": 0.0,
+      "wellbys_per_1000": 7.55,
+      "rank_life_years": 4,
+      "rank_wellby": 5
+    }
+  ],
+  "ranking_median_geography": [
+    {
+      "id": "smc_sokoto",
+      "charity": "Malaria Consortium",
+      "program": "Seasonal malaria chemoprevention",
+      "geography": "Median of 18 geographies",
+      "kind": "life_saving",
+      "cost_basis": "median",
+      "n_geographies": 18.0,
+      "cost_per_u5_death_usd": 3447.2416355,
+      "years_per_death": 37.0,
+      "life_years_per_1000": 10.73321916832598,
+      "wellbys_per_1000": 53.666095841629904,
+      "rank_life_years": 1,
+      "rank_wellby": 1
+    },
+    {
+      "id": "hki_niger",
+      "charity": "Helen Keller International",
+      "program": "Vitamin A supplementation",
+      "geography": "Median of 28 geographies",
+      "kind": "life_saving",
+      "cost_basis": "median",
+      "n_geographies": 28.0,
+      "cost_per_u5_death_usd": 4293.0914385,
+      "years_per_death": 37.789305995856274,
+      "life_years_per_1000": 8.802352928466814,
+      "wellbys_per_1000": 44.01176464233407,
+      "rank_life_years": 2,
+      "rank_wellby": 2
+    },
+    {
+      "id": "strongminds",
+      "charity": "StrongMinds",
+      "program": "Group psychotherapy",
+      "geography": "Uganda and Zambia",
+      "kind": "wellbeing",
+      "cost_basis": "published",
+      "n_geographies": NaN,
+      "cost_per_u5_death_usd": NaN,
+      "years_per_death": 0.0,
+      "life_years_per_1000": 0.0,
+      "wellbys_per_1000": 40.0,
+      "rank_life_years": 4,
+      "rank_wellby": 3
+    },
+    {
+      "id": "amf_guinea",
+      "charity": "Against Malaria Foundation",
+      "program": "Insecticide-treated nets",
+      "geography": "Median of 8 geographies",
+      "kind": "life_saving",
+      "cost_basis": "median",
+      "n_geographies": 8.0,
+      "cost_per_u5_death_usd": 5926.319891,
+      "years_per_death": 37.0,
+      "life_years_per_1000": 6.243334933065293,
+      "wellbys_per_1000": 31.216674665326465,
+      "rank_life_years": 3,
+      "rank_wellby": 4
+    },
+    {
+      "id": "givedirectly",
+      "charity": "GiveDirectly",
+      "program": "Cash transfers",
+      "geography": "Low-income households, HLI aggregate",
+      "kind": "wellbeing",
+      "cost_basis": "published",
+      "n_geographies": NaN,
+      "cost_per_u5_death_usd": NaN,
+      "years_per_death": 0.0,
+      "life_years_per_1000": 0.0,
+      "wellbys_per_1000": 7.55,
+      "rank_life_years": 4,
+      "rank_wellby": 5
+    }
+  ],
+  "crossovers_best_geography": [
+    {
+      "id": "hki_niger",
+      "charity": "Helen Keller International",
+      "geography": "Niger",
+      "life_years_per_1000": 55.724352219525294,
+      "wellbys_per_year_to_pass_strongminds": 0.7178190217881864,
+      "wellbys_per_year_to_pass_givedirectly": 0.1354883403625202
+    },
+    {
+      "id": "smc_sokoto",
+      "charity": "Malaria Consortium",
+      "geography": "Nigeria, Sokoto",
+      "life_years_per_1000": 24.500511790859715,
+      "wellbys_per_year_to_pass_strongminds": 1.6326189567567566,
+      "wellbys_per_year_to_pass_givedirectly": 0.3081568280878378
+    },
+    {
+      "id": "amf_guinea",
+      "charity": "Against Malaria Foundation",
+      "geography": "Guinea",
+      "life_years_per_1000": 16.631395133498796,
+      "wellbys_per_year_to_pass_strongminds": 2.4050898724324328,
+      "wellbys_per_year_to_pass_givedirectly": 0.45396071342162164
+    }
+  ],
+  "crossovers_median_geography": [
+    {
+      "id": "smc_sokoto",
+      "charity": "Malaria Consortium",
+      "geography": "Median of 18 geographies",
+      "life_years_per_1000": 10.73321916832598,
+      "wellbys_per_year_to_pass_strongminds": 3.7267477140540537,
+      "wellbys_per_year_to_pass_givedirectly": 0.7034236310277027
+    },
+    {
+      "id": "hki_niger",
+      "charity": "Helen Keller International",
+      "geography": "Median of 28 geographies",
+      "life_years_per_1000": 8.802352928466814,
+      "wellbys_per_year_to_pass_strongminds": 4.544239514714296,
+      "wellbys_per_year_to_pass_givedirectly": 0.8577252084023235
+    },
+    {
+      "id": "amf_guinea",
+      "charity": "Against Malaria Foundation",
+      "geography": "Median of 8 geographies",
+      "life_years_per_1000": 6.243334933065293,
+      "wellbys_per_year_to_pass_strongminds": 6.4068323145945945,
+      "wellbys_per_year_to_pass_givedirectly": 1.2092895993797297
+    }
+  ]
+}

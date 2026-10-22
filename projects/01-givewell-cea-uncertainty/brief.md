@@ -1,6 +1,8 @@
 # Evaluator note: uncertainty in GiveWell CEAs
 
-Three linked investigations: (1) stress-test AMF / **Guinea** cost per under-5 death averted; (2) portfolio **rank-order** under uncertainty across Top Charity geographies; (3) which geographies clear a **Top Charities Fund–style CE bar**.
+### TLDR
+
+Against Malaria Foundation bed nets in Guinea stay near $2,600 per under-5 death averted, and under $5,000 in about 99% of draws. Helen Keller’s vitamin A program in Niger stays first among 87 GiveWell program-geographies in about 84% of draws, while about 18 geographies sit close enough to a screen of 6 times GiveWell’s benchmark that uncertainty can move them across it.
 
 ---
 
@@ -10,7 +12,13 @@ Parameters sourced to GiveWell’s public Against Malaria Foundation (AMF) workb
 
 ### Decision
 
-Under uncertainty ranges centered on GiveWell’s Guinea best guesses, cost per under-5 death averted stays well below a $5,000 working comparison bar in about **99%** of 20,000 simulated worlds (median **$2,565**; middle 90% of outcomes **$1,710–$4,047**). To push the typical answer near $5k, a skeptic would need to assume both *much* lower baseline child malaria deaths *and* lower net use, while costs rise. The two assumptions that move the answer most are **how deadly malaria is without the program** and **whether people actually sleep under the nets**—not funging (left out of this particular calibration target; see glossary).
+**In Guinea, Against Malaria Foundation bed nets stay near $2,600 per under-5 death averted, and under $5,000 in about 99% of 20,000 draws.**
+
+GiveWell’s own best guess for this simplified count is $2,225 per under-5 death. The middle of the simulated range is $2,565. The middle 90% of draws runs from $1,710 to $4,047.
+
+**What moves the dollar figure.** How many children would die of malaria without the nets, and whether people actually sleep under them. A result near $5,000 would need a much lower death rate and much lower use, together with higher costs.
+
+This count is donor dollars per under-5 death before GiveWell’s later adjustments. Those adjustments include other funders spending less, deaths over age five, and income gains. GiveWell’s final cost per life saved in Guinea, after those adjustments, is about $2,941.
 
 ### Question
 
@@ -173,7 +181,15 @@ Independent random draws ignore real-world correlations. Insecticide resistance 
 
 ## Part 2 — Portfolio rank-order: who is #1 under uncertainty?
 
-Part 1 stress-tests **one** chain (AMF / Guinea). A grantmaker also cares about **relative** standing: if every top-charity geography is uncertain, does the **rank order** of initiatives flip?
+Part 1 stress-tests one program in one country. This part asks whether the order of GiveWell’s top-charity geographies still holds when each geography’s cost-effectiveness is uncertain.
+
+### Decision
+
+**Helen Keller’s vitamin A program in Niger stays first among 87 GiveWell program-geographies in about 84% of draws.**
+
+The unit is the one GiveWell uses to compare programs: multiples of its benchmark per dollar, where a higher multiple is better. Niger’s published best guess is 58.9 times that benchmark. New Incentives’ cash transfers for vaccination in Sokoto are first in about 12% of draws. The order of the full list barely moves. The top five do swap: the set overlaps the published top five only about 57% of the time. Those swaps are among strong programs.
+
+Against Malaria Foundation bed nets in Guinea are about 23 times the benchmark and almost never rank first. A low cost per death in one country is not the same thing as the highest multiple in the full list.
 
 ### Methodology
 
@@ -250,7 +266,15 @@ This is **not** a full re-implementation of every charity’s causal model; it p
 
 ## Part 3 — Top Charities Fund: who clears the CE screen?
 
-GiveWell’s **Top Charities Fund (TCF)** grants only to its **Top Charities** (AMF, Malaria Consortium, Helen Keller Intl, New Incentives in the current set). Allocation among those charities is **not** a mechanical ranking of every geography: staff use judgment about funding gaps, room for more funding, urgency, and implementation. What *is* clear enough to stress-test is the **cost-effectiveness (CE) bar**—the published minimum multiple of GiveWell’s benchmark used when deciding whether a funding opportunity is strong enough to consider.
+GiveWell’s Top Charities Fund grants only to its top charities: the Against Malaria Foundation, Malaria Consortium, Helen Keller International, and New Incentives. Staff also weigh funding gaps, room for more funding, and implementation. The piece that can be stress-tested is the cost-effectiveness screen: a minimum multiple of GiveWell’s benchmark.
+
+### Decision
+
+**About half of 87 program-geographies clear a screen of 6 times GiveWell’s benchmark. About 18 sit close enough that uncertainty can move them across it.**
+
+On the published best guess, 50 of 87 are at or above 6 times. In a typical draw, about 48 still clear. Malaria Consortium’s seasonal malaria program clears in essentially all 18 of its geographies. New Incentives clears in 11 of 37 states on the best guess. Against Malaria Foundation bed nets in Guinea clear both the 6-times screen and a stricter 8-times screen in essentially every draw.
+
+This is how often a geography stays above the published bar. It is not a prediction of which grant GiveWell will make.
 
 ### Operational rule (proxy, not GiveWell’s full process)
 

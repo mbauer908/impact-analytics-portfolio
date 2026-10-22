@@ -1,15 +1,9 @@
-# 04 — Rank charities under DALYs vs WELLBYs
+# 04 — Wellbeing-years and the life-saving programs
 
-Same 4–5 charities, two welfare units. The product is the *divergence*, not a new CEA from scratch.
+Published WELLBY estimates, set next to the life-saving programs that do not have one. The brief does not re-rank GiveWell’s geographies by multiplying deaths by a shared factor.
 
-**Status.** Scaffold. Reuse 01’s AMF-style outputs plus published GiveWell/HLI figures.
+**Status.** Written up. See [brief.md](brief.md).
 
-## Charities (default)
+## What it covers
 
-AMF, Malaria Consortium SMC, HKI vitamin A, GiveDirectly. Optional WELLBY-native contrast: StrongMinds / HLI-evaluated program.
-
-## Deliverables
-
-- [ ] Conversion assumptions YAML
-- [ ] Ranking table (DALY/$ vs WELLBY/$)
-- [ ] `brief.md` on why ranks move
+GiveDirectly and StrongMinds, from Happier Lives Institute survey-based totals. Against Malaria Foundation, from the Institute’s charity-wide range. Helen Keller vitamin A and Malaria Consortium seasonal chemoprevention, which have no published WELLBY cost-effectiveness.

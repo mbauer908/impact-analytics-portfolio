@@ -232,10 +232,10 @@ def _(beta_from_mean_phi, np, one_way_sensitivity, outcomes, spec, tornado):
     lows: dict[str, float] = {}
     highs: dict[str, float] = {}
     for name, p in spec["parameters"].items():
-        mid, lo, hi = _baseline_and_bounds(name, p)
-        baseline[name] = mid
-        lows[name] = lo
-        highs[name] = hi
+        _mid, _lo, _hi = _baseline_and_bounds(name, p)
+        baseline[name] = _mid
+        lows[name] = _lo
+        highs[name] = _hi
 
     def scalar_cost(d: dict) -> float:
         arr = {k: np.asarray(v, dtype=float) for k, v in d.items()}
@@ -267,11 +267,11 @@ def _(fig_dir, one_way, plt):
 
     fig3, ax3 = plt.subplots(figsize=(8, 4.2))
     for i, r in enumerate(ordered_ow.itertuples()):
-        lo, hi = r.outcome_at_low, r.outcome_at_high
-        left, right = min(lo, hi), max(lo, hi)
+        _lo, _hi = r.outcome_at_low, r.outcome_at_high
+        left, right = min(_lo, _hi), max(_lo, _hi)
         ax3.barh(i, right - left, left=left, height=0.55, color="#3b6d9a", alpha=0.85)
-        ax3.plot(lo, i, "o", color="#1a3a55", markersize=5, zorder=3)
-        ax3.plot(hi, i, "s", color="#c47b3a", markersize=5, zorder=3)
+        ax3.plot(_lo, i, "o", color="#1a3a55", markersize=5, zorder=3)
+        ax3.plot(_hi, i, "s", color="#c47b3a", markersize=5, zorder=3)
 
     ax3.axvline(base, color="black", linestyle="--", linewidth=1)
     ax3.set_yticks(range(len(ordered_ow)))

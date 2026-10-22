@@ -1,10 +1,16 @@
 # Evidence note: cash transfers and household consumption
 
-Pool effect sizes from LMIC cash-transfer evaluations, report how much programs disagree, and translate the pooled effect into a rough **cost per 10% consumption gain**.
+### TLDR
+
+Across eight cash-transfer programs in low- and middle-income countries, household consumption is about 19% higher on average. The programs disagree enough that a new program’s result could include no gain. At a delivery cost like GiveDirectly’s, about $1,100 per household, that average is about $570 per 10 percentage-point increase in consumption.
 
 ### Decision
 
-Across eight LMIC cash-transfer programs, the **mean** random-effects effect on total household consumption is about **+19%** (95% CI **+8% to +31%**). That mean is clearly above zero—but **heterogeneity is extreme (I² ≈ 94%)**, and the **95% prediction interval (−21% to +59%) crosses zero**. A grantmaker should treat “cash raises consumption” as the **typical direction** of effect, **not** as a promise that every similar program will deliver a double-digit gain. Anchoring on a GiveDirectly-like ~$1,100 all-in cost per household, a rough **cost per 10 percentage-point consumption gain** is about **$570** (5–95% of Monte Carlo draws ~$355–$1,170).
+**Cash transfers raise household consumption by about 19% on average. A similar new program might not.**
+
+The average across the eight programs is about +19%. The range for that average is about +8% to +31%, so the average itself is above zero. The range for a new program is about −21% to +59%, which includes no gain. About 94% of the scatter across studies looks like real differences between programs, not sampling noise.
+
+**The dollar figure is about $570 per 10 percentage-point gain in household consumption.** That uses an all-in cost of about $1,100 per household, a transfer plus the cost of delivering it. The middle 90% of the cost draws runs from about $355 to $1,170. This is a cost per consumption gain. It is not a cost per death averted.
 
 ### Question
 
@@ -23,7 +29,7 @@ Here the outcome is **proportionate change in total household consumption** (e.g
 | Term | Plain meaning |
 |---|---|
 | **UCT** | Unconditional cash transfer — money with no behavioral requirements (e.g. GiveDirectly, many African social cash transfers). |
-| **CCT** | Conditional cash transfer — money tied to behaviors such as school attendance or health visits (e.g. PROGRESA / Oportunidades, Familias en Acción). |
+| **CCT** | Conditional cash transfer — money tied to behaviors such as school attendance or health visits (e.g. PROGRESA / Oportunidades in Mexico, Familias en Acción in Colombia — “Families in Action”). |
 | **LMIC** | Low- and middle-income country — the population frame for this extract. |
 | **Total household consumption** | All spending (food + non-food), often per person or per adult equivalent; a standard poverty/welfare proxy when income is hard to measure. |
 | **Proportionate effect** | Impact ÷ comparison (or baseline) mean. +0.23 ≈ “+23% consumption.” |
@@ -71,7 +77,7 @@ Grantmakers often hear “cash works.” A meta-analysis forces the next questio
 
 **Pre-registered rules.** Locked in [`protocol.md`](protocol.md) *before* looking at the forest / pool: one outcome family; one estimate per program; RCT preferred; food-only and cash-plus graduation out of the primary pool; treat the pool as decision-grade only if the mean CI excludes zero **and** interpret the prediction interval honestly when I² is high.
 
-**Data / extraction.** 3ie-linked systematic-review tables (Kabeer & Waddington 2015 on CCT economic outcomes) plus primary evaluation reports for major UCTs (GiveDirectly, Zambia CGP, Kenya HSNP, Malawi SCTP) and Nicaragua’s Atención a Crisis. Rows, SEs, and source notes in `extraction.csv` (k = 8 included; one post-exit Atención estimate held out as robustness).
+**Data / extraction.** 3ie-linked systematic-review tables (Kabeer & Waddington 2015 on CCT economic outcomes) plus primary evaluation reports for major UCTs (GiveDirectly, Zambia CGP (Child Grant Program), Kenya HSNP (Hunger Safety Net Program), Malawi SCTP (Social Cash Transfer Program)) and Nicaragua’s Atención a Crisis (“Attention to Crisis”). Rows, SEs, and source notes in `extraction.csv` (k = 8 included; one post-exit Atención estimate held out as robustness).
 
 **Model.**
 1. Harmonize each estimate to **proportionate change** (level÷mean, or \(\exp(\beta)-1\) from log models with delta-method SE).
@@ -82,6 +88,21 @@ Grantmakers often hear “cash works.” A meta-analysis forces the next questio
 **Code.** `marimo edit projects/03-intervention-meta-analysis/notebook.py` (figures: `forest.png`, `cost_per_10ppt.png`).
 
 **Intentionally left out of the primary pool:** food-only expenditure; poverty headcount without a consumption estimate; enterprise grants / big-push graduation as the main arm; post-exit waves (except as `include=0` robustness); full dual-screened de novo 3ie search.
+
+#### How each study measured the effect
+
+All eight rows were converted to a **proportionate change** before pooling. The studies did not all start in that unit. A randomized comparison group stands in for what treated households would have consumed without the cash. Several studies still use **difference-in-differences**: follow-up minus baseline for the treated group, minus the same change for the comparison group. That second subtraction removes shocks that hit everyone (a drought, a price spike, a good harvest).
+
+| Program | Design | What was compared | Effect used here |
+|---|---|---|---|
+| **PROGRESA** (Mexico; later renamed Oportunidades) | Randomized communities | Proportionate gap between beneficiary and comparison households, as already calculated by Kabeer & Waddington (2015) from Handa et al. | **+2.6%** (95% CI 0.8–4.4%) |
+| **Familias en Acción** (Colombia; “Families in Action”) | Not randomized. Difference-in-differences against comparison areas chosen to look similar | Change in beneficiary communities minus change in comparison communities. The assumption is that the two sets of places would have moved together without the program | **+16%** (95% CI 4.8–27%), from the same review |
+| **Red de Protección Social** (Nicaragua; “Social Protection Network”) | Randomized trial, with difference-in-differences | Change in treated communities minus change in control communities | **+18%** (95% CI 4.3–31%), from the same review |
+| **GiveDirectly** (Kenya) | Households randomized within villages | About nine months after transfers started, monthly nondurable spending of treated households versus other households in the same villages: **+$36** (US dollars; SE $5.85) against a comparison mean of **$158** | **+$36 / $158 = +23%** |
+| **Zambia Child Grant** | Communities randomized; difference-in-differences at 36 months | Change in per-person monthly consumption in treated communities minus the change in control communities: **+10.44 kwacha** (Zambian currency; t = 4.45) versus a baseline mean of **40.48 kwacha** | **+26%**. Standard error = (effect / t) / baseline mean |
+| **Atención a Crisis** (Nicaragua; “Attention to Crisis”) | Communities randomized. Follow-up regression, not a pure difference-in-differences | 2006 log per-person consumption, while transfers were still being paid, controlling for baseline log consumption: **+0.299 log points** (SE 0.028) | **exp(0.299) − 1 = +35%** |
+| **Hunger Safety Net** (Kenya) | Communities randomized; difference-in-differences over about two years | Change in monthly consumption per adult equivalent for recipients minus the change for controls: **+247 shillings** (Kenyan currency), versus a treated baseline mean of **1,941**. Much of this gap was control households falling during a drought while recipients fell less | **+13%**. No published standard error; this note uses effect / 1.96 |
+| **Malawi Social Cash Transfer** | Communities randomized to immediate entry or a delayed-entry control; baseline, midline, and endline | Endline impact stated as **+23%** of baseline per-person consumption (about 10,380 kwacha, Malawian currency) after about two years of transfers | **+23%** kept as published. No published standard error; same conservative bound as Hunger Safety Net |
 
 ### Results
 
@@ -112,7 +133,7 @@ Grantmakers often hear “cash works.” A meta-analysis forces the next questio
 
 **What the chart is not.** It is not a list of GiveWell funding recommendations. It does not adjust for transfer size, duration, or local prices beyond what each study already did. It is not proof against publication bias.
 
-Point estimates in this extract range from roughly **+3% (PROGRESA)** to **+35% (Atención a Crisis, during program)**. African UCTs here (GiveDirectly, Zambia CGP, Malawi SCTP) cluster nearer **+20–26%**; Kenya’s HSNP is smaller (~+13%). That **spread** is the decision-relevant result.
+Point estimates in this extract range from roughly **+3% (PROGRESA)** to **+35% (Atención a Crisis, during program)**. African UCTs here (GiveDirectly, Zambia CGP (Child Grant Program), Malawi SCTP (Social Cash Transfer Program)) cluster nearer **+20–26%**; Kenya’s HSNP (Hunger Safety Net Program) is smaller (~+13%). That **spread** is the decision-relevant result.
 
 #### How to read the heterogeneity
 
@@ -166,7 +187,7 @@ Figure 2 answers: **If cash typically raises consumption by X%, how many dollars
 ### Limitations
 
 - **How studies were found.** The numbers are real and cited, but the *search process* was pragmatic—not a new systematic review of everything in 3ie. We started from an existing 3ie-linked published review (Kabeer & Waddington) and then typed effects from a handful of major evaluation reports into `extraction.csv`. We did **not** run a full from-scratch 3ie database search, and we did **not** have two people independently screen studies (dual screening). A broader or dual-screened search could add, drop, or reweight programs.
-- **Some standard errors are approximate.** For HSNP and Malawi we lacked a published SE and used a conservative bound implied by reported significance stars. Those two rows are less precise than the others.
+- **Some standard errors are approximate.** For HSNP (Kenya’s Hunger Safety Net Program) and Malawi we lacked a published SE and used a conservative bound implied by reported significance stars. Those two rows are less precise than the others.
 - **Effect metric conversions.** The Atención a Crisis estimate was converted from a log model (\(\exp(\beta)-1\)); that is standard but not identical to every other row’s reporting format.
 - **Mostly during-program effects.** Primary estimates are from periods when transfers were still flowing. Effects after programs end can be smaller (the held-out 2008 Atención follow-up is an example).
 - **No adjustment for shared methods or publication bias.** Treating each program as an independent draw ignores common evaluation methods and the chance that null results are under-published.

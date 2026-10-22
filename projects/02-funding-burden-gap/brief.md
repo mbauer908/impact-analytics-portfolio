@@ -1,10 +1,12 @@
 # Malaria: deaths vs aid
 
-For a grantmaker in this cause area: which countries pair a high malaria death toll with thin aid, and what a further grant would be if it matched the aid per death of the largest programs.
+### TLDR
+
+The countries with the largest malaria death tolls already receive about as much malaria aid per death as Nigeria, the Democratic Republic of the Congo, and Niger, about $1,500 per death. The gaps that remain are Yemen, about $1.4–1.8 million a year, and Nigeria, about $56 million a year to match Niger’s aid per death.
 
 ### Decision
 
-**The countries with the most malaria deaths are already funded at or above the large programs.** “In line” means the middle of what Nigeria, the DRC, and Niger already receive: about **$1,500 per death** and about **$18 per DALY**. Aid is the OECD malaria-control disbursement plus the Global Fund malaria allocation.
+**Most high-burden countries are already at or above about $1,500 in malaria aid per death.** That rate is the middle of what Nigeria, the Democratic Republic of the Congo, and Niger already receive. The same comparison on disability-adjusted life years, a year of healthy life lost, is about $18 per year lost. Aid here is the OECD malaria-control disbursement plus the Global Fund malaria allocation.
 
 | Country | Malaria deaths | Aid per year already | More aid to reach $1,500 per death | More aid to reach $18 per DALY |
 |---|---:|---:|---:|---:|

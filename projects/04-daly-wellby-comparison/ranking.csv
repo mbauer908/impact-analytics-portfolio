@@ -1,0 +1,6 @@
+id,charity,program,geography,kind,cost_basis,n_geographies,cost_per_u5_death_usd,years_per_death,life_years_per_1000,wellbys_per_1000,rank_life_years,rank_wellby
+hki_niger,Helen Keller International,Vitamin A supplementation,Niger,life_saving,best,1.0,678.1470666,37.789305995856274,55.724352219525294,278.62176109762646,1,1
+smc_sokoto,Malaria Consortium,Seasonal malaria chemoprevention,"Nigeria, Sokoto",life_saving,best,1.0,1510.172535,37.0,24.500511790859715,122.50255895429858,2,2
+amf_guinea,Against Malaria Foundation,Insecticide-treated nets,Guinea,life_saving,best,1.0,2224.708132,37.0,16.631395133498796,83.15697566749398,3,3
+strongminds,StrongMinds,Group psychotherapy,Uganda and Zambia,wellbeing,published,,,0.0,0.0,40.0,4,4
+givedirectly,GiveDirectly,Cash transfers,"Low-income households, HLI aggregate",wellbeing,published,,,0.0,0.0,7.55,4,5
