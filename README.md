@@ -45,4 +45,4 @@ marimo edit projects/01-givewell-cea-uncertainty/notebook.py
 
 ## License
 
-Code is MIT. Underlying datasets remain under their original licenses; do not republish restricted extracts.
+Code is copyright M. Bauer. See [LICENSE](LICENSE) for the reuse terms. Underlying datasets remain under their original licenses; do not republish restricted extracts.
